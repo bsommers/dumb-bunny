@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 152" width="720" height="152" role="img" aria-label="Operation Dumb Bunny — OSI Bionic Lab x ENCOM Grid Crest">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#04070f" />
+      <stop offset="50%" stop-color="#081022" />
+      <stop offset="100%" stop-color="#040814" />
+    </linearGradient>
+    <radialGradient id="core-glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.16" />
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#050811" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="title-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f0f6fc" />
+      <stop offset="55%" stop-color="#7dd3fc" />
+      <stop offset="100%" stop-color="#f4a8c5" />
+    </linearGradient>
+    <pattern id="minor-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#38bdf8" stroke-width="0.5" stroke-opacity="0.09" />
+    </pattern>
+    <pattern id="major-grid" width="96" height="96" patternUnits="userSpaceOnUse">
+      <rect width="96" height="96" fill="url(#minor-grid)" />
+      <path d="M 96 0 L 0 0 0 96" fill="none" stroke="#00e5ff" stroke-width="0.9" stroke-opacity="0.18" />
+      <circle cx="0" cy="0" r="1.5" fill="#00e5ff" fill-opacity="0.35" />
+    </pattern>
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Obsidian Canvas + Cyber Grid -->
+  <rect width="720" height="152" rx="16" fill="url(#bg-grad)" />
+  <rect width="720" height="152" rx="16" fill="url(#major-grid)" />
+  <rect width="720" height="152" rx="16" fill="url(#core-glow)" />
+  <rect x="1.5" y="1.5" width="717" height="149" rx="15" fill="none" stroke="#00e5ff" stroke-opacity="0.45" stroke-width="1.5" />
+
+  <!-- Corner HUD Reticles -->
+  <path d="M 14 28 L 14 14 L 28 14" fill="none" stroke="#00e5ff" stroke-width="2" />
+  <path d="M 692 14 L 706 14 L 706 28" fill="none" stroke="#00e5ff" stroke-width="2" />
+  <path d="M 14 124 L 14 138 L 28 138" fill="none" stroke="#00e5ff" stroke-width="2" />
+  <path d="M 692 138 L 706 138 L 706 124" fill="none" stroke="#00e5ff" stroke-width="2" />
+
+  <!-- Left Identity Disc Emblem -->
+  <g transform="translate(36, 26)">
+    <circle cx="50" cy="50" r="44" fill="#081226" stroke="#00e5ff" stroke-width="2.4" filter="url(#neon-glow)" />
+    <circle cx="50" cy="50" r="35" fill="none" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.2" stroke-dasharray="6 4" />
+    <ellipse cx="26" cy="35" rx="14" ry="6.8" transform="rotate(-24 26 35)" fill="#d48ba8" fill-opacity="0.88" stroke="#00e5ff" stroke-width="1.4" />
+    <ellipse cx="74" cy="35" rx="14" ry="6.8" transform="rotate(24 74 35)" fill="#d48ba8" fill-opacity="0.88" stroke="#00e5ff" stroke-width="1.4" />
+    <circle cx="50" cy="54" r="21" fill="#0b1428" stroke="#00e5ff" stroke-width="2" />
+    <ellipse cx="50" cy="56" rx="15" ry="13" fill="#c5a179" />
+    <circle cx="42.5" cy="54" r="3.4" fill="#366687" />
+    <circle cx="57.5" cy="54" r="3.4" fill="#366687" />
+    <circle cx="41.5" cy="53" r="1.1" fill="#ffffff" />
+    <circle cx="56.5" cy="53" r="1.1" fill="#ffffff" />
+    <ellipse cx="50" cy="59.5" rx="3" ry="1.9" fill="#944536" />
+    <line x1="50" y1="24" x2="50" y2="78" stroke="#00ff9d" stroke-opacity="0.65" stroke-width="1.2" stroke-dasharray="3 3" />
+  </g>
+
+  <!-- Title & Telemetry Tagline -->
+  <text x="158" y="48" fill="#00e5ff" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="700" letter-spacing="3">
+    THE GRID // OSI BIONIC PLUSH LAB · MODEL DB-6000000
+  </text>
+  <text x="156" y="88" fill="url(#title-grad)" font-family="-apple-system, BlinkMacSystemFont, Inter, Segoe UI, sans-serif" font-size="38" font-weight="800" letter-spacing="1.5">
+    OPERATION DUMB BUNNY
+  </text>
+  <text x="158" y="114" fill="#f4a8c5" font-family="-apple-system, BlinkMacSystemFont, Inter, Segoe UI, sans-serif" font-size="14" font-weight="600">
+    “Gentlemen, we can rebuild him. Better. Stronger. Faster. Fuzzier.”
+  </text>
+  <text x="158" y="133" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">
+    ⚡ I FIGHT FOR THE PLUSH · DEREZZING SCOTCH TAPE &amp; VINYL FRACTURES SINCE 2026
+  </text>
+</svg>

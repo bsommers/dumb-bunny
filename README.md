@@ -14,10 +14,13 @@
 ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
 
+[![Live Showcase](https://img.shields.io/badge/LIVE_SHOWCASE-bsommers.github.io%2Fdumb--bunny-00e5ff?style=for-the-badge)](https://bsommers.github.io/dumb-bunny/)
 ![Bionic Status](https://img.shields.io/badge/OSI_BIONIC_STATUS-REBUILT_%26_WATERTIGHT-34d399?style=for-the-badge)
 ![The Grid](https://img.shields.io/badge/THE_GRID-BLENDER_5.0.1_LIVE_GUI-38bdf8?style=for-the-badge)
-![Swarm](https://img.shields.io/badge/SWARM-4x_GEMINI_4_NEON_HIGH-f4a8c5?style=for-the-badge)
+![Swarm](https://img.shields.io/badge/SWARM-6x_GEMINI_4_NEON_HIGH-f4a8c5?style=for-the-badge)
 ![Symmetry](https://img.shields.io/badge/FACE_SYMMETRY-99.69%25_SKIN_LOCK-fbbf24?style=for-the-badge)
+
+**🌐 Interactive Showcase & 3D Inspector:** [**`https://bsommers.github.io/dumb-bunny/`**](https://bsommers.github.io/dumb-bunny/) *(Live 3D STL turntable, draggable before/after crack slider, build gallery & 3D printing field manual)*
 
 </div>
 

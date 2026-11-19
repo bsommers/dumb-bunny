@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OPERATION DUMB BUNNY // OSI Bionic Lab × ENCOM Grid Showcase</title>
+  <meta
+    name="description"
+    content="Gentlemen, we can rebuild him. Better. Stronger. Faster. Fuzzier. Multi-agent photogrammetry, 99.69% facial symmetry crack repair, live Blender 5.0 GUI sculpting, and 100% watertight 3D-printable STL prototypes."
+  />
+  <meta property="og:title" content="OPERATION DUMB BUNNY // Bionic 3D Reconstruction &amp; Facial Symmetry Lab" />
+  <meta
+    property="og:description"
+    content="Derezzing Scotch tape &amp; vinyl fractures since 2026 — 100% watertight 184 mm 3D-printable plush bunny figurine &amp; 0.0029 mm RMS symmetric replacement face mask."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bsommers.github.io/dumb-bunny/" />
+  <meta property="og:image" content="https://bsommers.github.io/dumb-bunny/assets/tracker_screenshot.png" />
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Sticky Top HUD Navigation -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a class="brand-link" href="#top">
+        <img src="assets/icon.svg" alt="" width="34" height="34" />
+        <span>
+          OPERATION DUMB BUNNY
+          <span class="brand-sub">OSI BIONIC LAB // ENCOM GRID</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#face-repair">Face Repair</a>
+        <a href="#inspector-3d">3D Inspector</a>
+        <a href="#build-gallery">Build Stages</a>
+        <a href="#mission-hud">Mission HUD</a>
+        <a href="#field-manual">Field Manual</a>
+        <a class="nav-cta" href="https://github.com/bsommers/dumb-bunny" target="_blank" rel="noopener">GitHub Repo ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section id="top" class="hero-section">
+      <div class="container">
+        <div class="hud-panel hero-card">
+          <div>
+            <div class="hero-kicker">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              <span>THE GRID // OSI BIONIC PLUSH LAB · MODEL DB-6000000</span>
+            </div>
+            <h1 class="hero-title">OPERATION DUMB BUNNY</h1>
+            <p class="hero-motto">“Gentlemen, we can rebuild him. Better. Stronger. Faster. Fuzzier.”</p>
+            <p class="hero-lore">
+              <strong>Subject:</strong> A cherished childhood vintage rubber-face plush rabbit. Barely alive. Left vinyl cheek shattered into jagged shards, held together by yellowing <strong>Scotch tape</strong> and stubborn nostalgia.
+              Our <strong>6-agent Gemini 4 Neon High swarm</strong> digitized 4 iPhone photos into a live <strong>Blender 5.0.1 GUI</strong> sculpt, derezzed the fracture via strict right-to-left (<code>-X → +X</code>) symmetry, and forged <strong>100% watertight 3D-printable STL prototypes</strong>.
+            </p>
+
+            <div class="kpi-strip" aria-label="Verified mission telemetry badges">
+              <span class="kpi-pill emerald">✓ 100% Watertight 2-Manifold</span>
+              <span class="kpi-pill cyan">99.69% Skin Symmetry</span>
+              <span class="kpi-pill gold">0.0029 mm Face Mask RMS</span>
+              <span class="kpi-pill pink">184.01 mm Tall · 784.6 cm³</span>
+              <span class="kpi-pill">6× Gemini 4 Neon High Swarm</span>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#inspector-3d">🧊 Spin Live 3D Model</a>
+              <a class="btn btn-pink" href="#field-manual" data-open-tab="tab-downloads">⬇ 3D Print Files (.STL / .OBJ)</a>
+              <a class="btn btn-ghost" href="https://github.com/bsommers/dumb-bunny" target="_blank" rel="noopener">GitHub Repository ↗</a>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <img
+              src="assets/site/05_hero_34.webp"
+              alt="Hero 3/4 studio render of the restored Operation Dumb Bunny figurine in Blender 5.0.1"
+              width="1280"
+              height="800"
+              fetchpriority="high"
+            />
+            <div class="hero-scanline" aria-hidden="true"></div>
+            <div class="hero-hud-tag">
+              <span>LIVE BLENDER 5.0.1 // HERO 3/4 SHOWCASE</span>
+              <span>358,230 TRIS · 0 NON-MANIFOLD ✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Interactive Facial Crack Repair Lab -->
+    <section id="face-repair" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">SECTOR 01 // DEREZZING SCOTCH TAPE &amp; VINYL FRACTURES</div>
+            <h2 class="section-title">Interactive Right-to-Left (<code>-X → +X</code>) Bionic Face Repair</h2>
+          </div>
+          <p class="section-sub">
+            Drag the laser divider (or use arrow keys on the range slider) to compare the deskewed intake fracture against our Crisp v3 symmetric restoration. Toggle the diagnostic mask to inspect the exact derezzed repair zones.
+          </p>
+        </div>
+
+        <div class="hud-panel repair-grid">
+          <div>
+            <div class="compare-stage" id="compareStage">
+              <img
+                class="compare-img"
+                src="assets/site/face_damaged_aligned.webp"
+                alt="Deskewed intake photo showing fractured left vinyl cheek and Scotch tape across chin"
+                width="900"
+                height="900"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="compare-after-wrap" id="compareAfterWrap">
+                <img
+                  class="compare-img"
+                  src="assets/site/face_repaired.webp"
+                  alt="Bionically repaired vintage rubber bunny face with 99.69% skin symmetry and preserved blue eyes"
+                  width="900"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <img
+                class="compare-mask-overlay"
+                id="compareMaskOverlay"
+                src="assets/site/face_repair_mask.webp"
+                alt="Diagnostic bionic repair mask highlighting intact donor side in cyan and repaired fracture zones in red"
+                width="900"
+                height="900"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="compare-divider" id="compareDivider" aria-hidden="true">
+                <div class="compare-handle">⇄</div>
+              </div>
+              <span class="compare-badge left">INTAKE FRACTURE (79.80%)</span>
+              <span class="compare-badge right">BIONIC REPAIR (99.69%)</span>
+            </div>
+
+            <div class="compare-controls">
+              <label for="compareRange" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+                Facial repair before and after comparison slider
+              </label>
+              <input
+                id="compareRange"
+                class="compare-range"
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+                aria-label="Compare damaged face versus bionic repaired face"
+              />
+              <div class="compare-toolbar">
+                <span style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);">
+                  Split: <strong id="comparePctLabel" style="color:var(--cyan-neon);">50%</strong>
+                </span>
+                <div class="btn-group">
+                  <button type="button" class="toggle-btn" id="toggleMaskBtn" aria-pressed="false">
+                    🎯 Diagnostic Crack Mask: OFF
+                  </button>
+                  <button type="button" class="toggle-btn" id="resetSplitBtn">Reset 50/50</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="telemetry-stack">
+            <div class="telemetry-callout">
+              <h3>Skin Structure Symmetry Lock</h3>
+              <div class="telemetry-big">
+                <span>79.80% → 99.69%</span>
+                <small>+19.89 pts gain</small>
+              </div>
+              <p style="font-size:0.86rem;color:var(--muted);margin-top:6px;">
+                Mirrored intact <strong>bunny-right (<code>-X</code>)</strong> donor cheek, lower temple &amp; jaw onto the shattered <strong>bunny-left (<code>+X</code>)</strong> side with tight crack-boundary feathering, zero global blur, and exact luminance matching.
+              </p>
+            </div>
+
+            <div class="metric-mini-grid">
+              <div class="metric-mini">
+                <div class="lbl">Blue-Iris Roll Deskew</div>
+                <div class="val" style="color:var(--cyan-neon);">-25.03° CCW</div>
+              </div>
+              <div class="metric-mini">
+                <div class="lbl">3D Heightmap Sym Error</div>
+                <div class="val" style="color:var(--emerald);">0.0 (float32 exact)</div>
+              </div>
+              <div class="metric-mini">
+                <div class="lbl">Skin RGB MAE (0–255)</div>
+                <div class="val">22.53 → 0.69</div>
+              </div>
+              <div class="metric-mini">
+                <div class="lbl">Skin Pearson r</div>
+                <div class="val">0.587 → 0.9963</div>
+              </div>
+            </div>
+
+            <div class="telemetry-callout">
+              <h3>Soul &amp; Gaze Preservation Protocol</h3>
+              <p style="font-size:0.86rem;color:var(--text-body);">
+                Dumb Bunny’s iconic <strong>side-glancing blue eyes</strong> and curved black painted lashes were surgically protected (overall image symmetry <code>76.63% → 93.70%</code>) so his quirky vintage personality survived the bionic upgrade 100% intact!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Interactive Zero-Dependency 3D STL Turntable Inspector -->
+    <section id="inspector-3d" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">SECTOR 02 // REAL-TIME GEOMETRY GRID</div>
+            <h2 class="section-title">Interactive Zero-Dependency 3D STL Inspector</h2>
+          </div>
+          <p class="section-sub">
+            Drag to orbit, scroll to zoom, switch between the full 184 mm restored figurine and the standalone symmetric replacement face mask, and toggle between Bionic Studio, TRON Neon Grid, and Wireframe X-Ray shaders.
+          </p>
+        </div>
+
+        <div class="hud-panel viewer-wrap">
+          <div class="viewer-toolbar">
+            <div class="btn-group" role="group" aria-label="Select 3D model">
+              <button type="button" class="toggle-btn active" data-stl-model="full" aria-pressed="true">
+                🐇 Full Figurine (184 mm)
+              </button>
+              <button type="button" class="toggle-btn" data-stl-model="mask" aria-pressed="false">
+                🎭 Repaired Face Mask (0.0029 mm RMS)
+              </button>
+            </div>
+
+            <div class="btn-group" role="group" aria-label="Select rendering mode">
+              <button type="button" class="toggle-btn active" data-render-mode="shaded" aria-pressed="true">
+                Bionic Studio
+              </button>
+              <button type="button" class="toggle-btn" data-render-mode="tron" aria-pressed="false">
+                ⚡ TRON Neon Grid
+              </button>
+              <button type="button" class="toggle-btn" data-render-mode="wire" aria-pressed="false">
+                Wireframe
+              </button>
+              <button type="button" class="toggle-btn active" id="toggleOrbitBtn" aria-pressed="true">
+                Auto-Orbit: ON
+              </button>
+              <button type="button" class="toggle-btn" id="resetCamBtn">
+                Reset View
+              </button>
+            </div>
+          </div>
+
+          <div class="viewer-stage" id="viewerStage">
+            <canvas
+              id="stlCanvas"
+              class="viewer-canvas"
+              role="img"
+              aria-label="Interactive 3D STL mesh viewer of Operation Dumb Bunny"
+            ></canvas>
+            <div class="viewer-status" id="viewerStatus">Initializing Bionic 3D Viewport…</div>
+            <div class="viewer-hud">
+              <span class="viewer-pill" id="viewerStatsPill">Loading web-optimized preview STL…</span>
+              <span class="viewer-pill" style="color:var(--pink-hi);">Drag to Orbit · Scroll to Zoom · Pinch Supported</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: 6-Stage Live Blender 5.0 Build Progression Gallery -->
+    <section id="build-gallery" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">SECTOR 03 // LIVE NON-HEADLESS BLENDER 5.0.1 PIPELINE</div>
+            <h2 class="section-title">Stage-by-Stage Build Progression &amp; Turnaround Gallery</h2>
+          </div>
+          <p class="section-sub">
+            Every mesh stage executed live inside a visible Blender 5.0.1 GUI over our atomic <code>bpy.app.timers</code> IPC bridge. Click any frame to launch the high-resolution lightbox inspector.
+          </p>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Filter gallery by build phase">
+          <button type="button" class="toggle-btn active" data-gallery-filter="all" aria-pressed="true">All Frames (10)</button>
+          <button type="button" class="toggle-btn" data-gallery-filter="sculpt" aria-pressed="false">Live Sculpt Stages 1–4 (5)</button>
+          <button type="button" class="toggle-btn" data-gallery-filter="turnaround" aria-pressed="false">Final Studio Turnarounds (4)</button>
+          <button type="button" class="toggle-btn" data-gallery-filter="calib" aria-pressed="false">Photogrammetry Calibration (1)</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+          <button type="button" class="gallery-card" data-category="calib" data-full="assets/site/calibration_sheet.webp" data-title="Stage 0: 4-View CIE Lab Shadow-Free Photogrammetry" data-caption="Shadow-invariant CIE Lab segmentation of all 4 smartphone views, extracting 24 vertical slices at 3,800 px/m and 6 authentic sRGB material swatches.">
+            <div class="gallery-thumb">
+              <img src="assets/site/calibration_sheet.webp" alt="4-view photogrammetry calibration sheet showing segmented silhouettes and 24 height slices" width="1400" height="564" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 0 · CALIB</span>
+            </div>
+            <div class="gallery-body">
+              <h3>4-View Photogrammetry Sheet</h3>
+              <p>CIE Lab shadow rejection, 24 metric height slices &amp; 6 authentic sRGB color swatches.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="sculpt" data-full="assets/site/01_ref_rig.webp" data-title="Stage 1: Live 4-View Orthographic Grid Rig &amp; Pedestal" data-caption="Backface-culled RGBA 600×800 orthographic reference planes mounted at exact calibrated metric coordinates above a dark-metallic glowing cyan ENCOM pedestal (Z = 0.0).">
+            <div class="gallery-thumb">
+              <img src="assets/site/01_ref_rig.webp" alt="Stage 1 Blender live viewport showing 4 orthographic reference plates on glowing pedestal" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 1 · RIG</span>
+            </div>
+            <div class="gallery-body">
+              <h3>4-View Ortho Reference Rig</h3>
+              <p>Backface-culled RGBA plates on a glowing ENCOM turntable disc at Z = 0.0.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="sculpt" data-full="assets/site/02_body_hood.webp" data-title="Stage 2: Plush Velour Torso Drapery &amp; Cinched Hood" data-caption="96×128 cosine-biased UV loft sculpting Dumb Bunny's plump bean torso, soft belly folds, center-back velour seam, rolled face-rim collar, and radiating cinched neck pleats.">
+            <div class="gallery-thumb">
+              <img src="assets/site/02_body_hood.webp" alt="Stage 2 live sculpt of pink velour plush torso and cinched hood in Blender" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 2 · BODY</span>
+            </div>
+            <div class="gallery-body">
+              <h3>Velour Torso &amp; Cinched Hood</h3>
+              <p>Plump bean torso envelope, neck pleats, rolled hood rim &amp; vintage back seam.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="sculpt" data-full="assets/site/03_limbs_ears.webp" data-title="Stage 3: Chubby Olive-Tan Arms, Plump Feet &amp; Floppy Ears" data-caption="Stuffed pillow-limb generators with perimeter blanket-stitch ridges and twin splayed floppy paddle ears enforced to ≥ 5.6 mm thickness for reliable 3D printing.">
+            <div class="gallery-thumb">
+              <img src="assets/site/03_limbs_ears.webp" alt="Stage 3 live sculpt adding olive-tan stubby arms, oval feet, and floppy bunny ears" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 3 · LIMBS</span>
+            </div>
+            <div class="gallery-body">
+              <h3>Arms, Feet &amp; Floppy Ears</h3>
+              <p>Blanket-stitch seam ridges and print-safe ≥ 5.6 mm floppy paddle bunny ears.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="sculpt" data-full="assets/site/04a_crack_detected.webp" data-title="Stage 4A: Live 3D Crack Diagnostic Projection (+X Fracture)" data-caption="Pre-repair diagnostic projection mapping the deskewed intake fracture and Scotch tape distortion directly onto the live 3D head cavity before symmetry reconstruction.">
+            <div class="gallery-thumb">
+              <img src="assets/site/04a_crack_detected.webp" alt="Stage 4A diagnostic projection showing left-cheek vinyl crack in Blender viewport" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 4A · SCAN</span>
+            </div>
+            <div class="gallery-body">
+              <h3>3D Fracture Diagnostic Scan</h3>
+              <p>Mapping the original +X vinyl fracture &amp; Scotch tape directly in live 3D space.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="sculpt" data-full="assets/site/04b_face_repaired.webp" data-title="Stage 4B: Strict -X → +X Bionic Symmetric Face Sculpt" data-caption="Bionic face dome sculpted from the float32 X-symmetric heightmap (max err = 0.0) and Crisp v3 repaired texture — domed forehead, button nose, twin muzzle pads, and plump cheeks.">
+            <div class="gallery-thumb">
+              <img src="assets/site/04b_face_repaired.webp" alt="Stage 4B live Blender closeup of the repaired symmetric vintage rubber bunny face" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 4B · BIONIC</span>
+            </div>
+            <div class="gallery-body">
+              <h3>Bionic Symmetric Face Sculpt</h3>
+              <p>Heightmap-displaced baby-bunny relief + standalone 3.5 mm mask shell.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="turnaround" data-full="assets/site/05_hero_34.webp" data-title="Stage 5: Hero 3/4 Studio Turnaround (Restored Dumb Bunny)" data-caption="Final PBR showcase combining Mat_VintageRubberFace satin vinyl, Mat_PinkVelour grazing velvet sheen, and Mat_OliveCloth crosshatch weave under 3-point AgX lighting.">
+            <div class="gallery-thumb">
+              <img src="assets/site/05_hero_34.webp" alt="Hero 3/4 studio turnaround render of restored Dumb Bunny" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 5 · HERO</span>
+            </div>
+            <div class="gallery-body">
+              <h3>Hero 3/4 Studio Showcase</h3>
+              <p>Authentic PBR satin vinyl, dusty-rose velour sheen &amp; woven olive cloth.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="turnaround" data-full="assets/site/06_front.webp" data-title="Stage 5: Straight Front Orthographic-Calibrated Turnaround" data-caption="Straight front studio verification showing balanced 184 mm stance, rolled hood collar fit, splayed paddle ears, and expressive side-glancing blue eyes.">
+            <div class="gallery-thumb">
+              <img src="assets/site/06_front.webp" alt="Straight front studio render of restored Dumb Bunny" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 5 · FRONT</span>
+            </div>
+            <div class="gallery-body">
+              <h3>Straight Front Verification</h3>
+              <p>Flush hood-to-face seal, symmetric cheek contours &amp; balanced stance.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="turnaround" data-full="assets/site/07_left_repaired.webp" data-title="Stage 5: Repaired Left Side (+X) — Zero Vinyl Fracture" data-caption="Close-up of Dumb Bunny's formerly shattered +X cheek and jawline — completely derezzed with smooth vinyl continuity and zero Scotch tape artifacts.">
+            <div class="gallery-thumb">
+              <img src="assets/site/07_left_repaired.webp" alt="Left side studio render highlighting the seamlessly repaired +X cheek" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 5 · +X FIXED</span>
+            </div>
+            <div class="gallery-body">
+              <h3>Repaired Left Side (+X)</h3>
+              <p>Formerly shattered cheek &amp; jaw seamlessly rebuilt from intact -X donor side.</p>
+            </div>
+          </button>
+
+          <button type="button" class="gallery-card" data-category="turnaround" data-full="assets/site/08_back.webp" data-title="Stage 5: Back View — Cinched Hood Pleats &amp; Velour Seam" data-caption="Rear silhouette highlighting the smooth rounded velour hood crown, gathered neck pleats, center-back plush seam, and plump stuffed seat.">
+            <div class="gallery-thumb">
+              <img src="assets/site/08_back.webp" alt="Back studio render showing pinched hood pleats and center-back velour seam" width="1280" height="800" loading="lazy" decoding="async" />
+              <span class="stage-tag">STAGE 5 · BACK</span>
+            </div>
+            <div class="gallery-body">
+              <h3>Back Silhouette &amp; Seam</h3>
+              <p>Gathered hood neck pleats, authentic center-back seam &amp; flat Z=0 base.</p>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Live Mission Control HUD & Swarm Roster -->
+    <section id="mission-hud" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">SECTOR 04 // OBSERVABILITY &amp; MASTER CONTROL SWARM</div>
+            <h2 class="section-title">Live Mission Control HUD &amp; Swarm Roster</h2>
+          </div>
+          <p class="section-sub">
+            Every agent reported atomic JSON telemetry to <code>work/tracker_state.json</code>, powering a zero-dependency obsidian HUD anchored by our mandatory <strong>Collapsible Live Gantt Chart</strong> (<code>GEMINI.md</code>).
+          </p>
+        </div>
+
+        <div class="hud-showcase-grid">
+          <div class="hud-panel hud-preview-box">
+            <button
+              type="button"
+              class="hud-shot-btn"
+              id="openHudLightboxBtn"
+              data-full="assets/tracker_screenshot.png"
+              data-title="Operation Dumb Bunny — Live Mission Control HUD (100% Complete)"
+              data-caption="Full live capture of http://127.0.0.1:8765 showing the expanded Collapsible Live Gantt Timeline (4/4 parallel lanes, 7/7 phases DONE), live Blender 5.0.1 viewport feed, facial crack comparison slider, 4 reference plates, and verified deliverables."
+            >
+              <img
+                src="assets/site/tracker_hud.webp"
+                alt="Screenshot of the Operation Dumb Bunny Live Mission Control Web Tracker featuring a collapsible live Gantt chart and Blender viewport feed"
+                width="975"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="hud-shot-caption">
+                <span>LIVE MISSION CONTROL HUD (127.0.0.1:8765)</span>
+                <span>Click to Inspect Full-Res PNG ⤢</span>
+              </span>
+            </button>
+          </div>
+
+          <div class="hud-panel" style="padding:20px;">
+            <h3 style="font-family:var(--mono);font-size:0.84rem;letter-spacing:0.12em;color:var(--cyan);margin-bottom:12px;">
+              MASTER CONTROL SWARM ROSTER (6× GEMINI 4 NEON HIGH)
+            </h3>
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Callsign</th>
+                    <th>Specialty</th>
+                    <th>Verified Deliverables</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>coordinator</code></td>
+                    <td>OSI Mission Director</td>
+                    <td>HEIC ingest, Blender GUI launch, Tracker server &amp; swarm choreography</td>
+                  </tr>
+                  <tr>
+                    <td><code>photogrammetry</code></td>
+                    <td>4-View Calibration</td>
+                    <td><code>measurements.json</code> (24 slices), 4× <code>ortho_*.png</code>, <code>calibration_sheet.png</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>face-repair</code></td>
+                    <td>Bionic Symmetry</td>
+                    <td><code>face_repaired.png</code> (99.69%), <code>face_heightmap_repaired.npy</code> (0.0 err)</td>
+                  </tr>
+                  <tr>
+                    <td><code>sculptor</code></td>
+                    <td>Live Blender 5.0 GUI</td>
+                    <td><code>stage1..5*.py</code>, <code>dumb_bunny.blend</code>, watertight 1-shell STLs &amp; OBJ/MTL</td>
+                  </tr>
+                  <tr>
+                    <td><code>verifier</code></td>
+                    <td>3D Printability QA</td>
+                    <td><code>verify_prototype.py</code> &amp; <code>qa_report.json</code> (0 issues, 0 non-manifold)</td>
+                  </tr>
+                  <tr>
+                    <td><code>docs-publisher</code></td>
+                    <td>Bionic Archivist</td>
+                    <td><code>README.md</code>, <code>ARCHITECTURE.md</code>, <code>USER_GUIDE.md</code> &amp; this GitHub Pages site</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="telemetry-callout" style="margin-top:16px;">
+              <h3>Mandatory Collapsible Live Gantt Standard (<code>GEMINI.md</code>)</h3>
+              <p style="font-size:0.84rem;color:var(--text-body);">
+                Expanded by default at the top of <code>tracker/index.html</code> with <code>localStorage</code> state persistence, adaptive <code>+0m/+5m</code> time ruler, glowing live <strong>NOW</strong> cursor, parallel worker swimlanes, grouped pipeline phases, and flicker-free delegated hover tooltips.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Interactive Architecture, Field Manual & Downloads Tabs -->
+    <section id="field-manual" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">SECTOR 05 // ENGINEERING SCHEMATICS &amp; 3D PRINTING MANUAL</div>
+            <h2 class="section-title">Architecture, Slicer Profiles &amp; Production Downloads</h2>
+          </div>
+          <p class="section-sub">
+            Switch tabs to inspect the system schematic &amp; QA scorecard, copy exact FDM/SLA 3D printing profiles &amp; vintage paint hex codes, or grab full-resolution production files straight from GitHub.
+          </p>
+        </div>
+
+        <div class="hud-panel tabs-shell">
+          <div class="tab-list" role="tablist" aria-label="Documentation and downloads sections">
+            <button type="button" class="tab-btn" role="tab" id="tab-arch" aria-controls="panel-arch" aria-selected="true">
+              🧬 Architecture &amp; QA Scorecard
+            </button>
+            <button type="button" class="tab-btn" role="tab" id="tab-print" aria-controls="panel-print" aria-selected="false">
+              🖨️ 3D Printing Field Manual
+            </button>
+            <button type="button" class="tab-btn" role="tab" id="tab-downloads" aria-controls="panel-downloads" aria-selected="false">
+              ⬇ Full-Res Downloads &amp; Docs
+            </button>
+          </div>
+
+          <!-- TAB 1: Architecture & QA -->
+          <div id="panel-arch" class="tab-panel" role="tabpanel" aria-labelledby="tab-arch">
+            <svg class="arch-flow-svg" viewBox="0 0 1120 250" role="img" aria-label="Operation Dumb Bunny end-to-end bionic reconstruction architecture diagram">
+              <defs>
+                <pattern id="arch-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#38bdf8" stroke-width="0.5" stroke-opacity="0.1" />
+                </pattern>
+                <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 10 5 L 0 9 z" fill="#00e5ff" />
+                </marker>
+              </defs>
+              <rect width="1120" height="250" fill="url(#arch-grid)" />
+
+              <!-- Node 1: Photos -->
+              <rect x="20" y="76" width="160" height="96" rx="10" fill="#0b1428" stroke="#38bdf8" stroke-width="1.5" />
+              <text x="100" y="106" text-anchor="middle" fill="#00e5ff" font-family="ui-monospace,monospace" font-size="11" font-weight="700">1. INTAKE</text>
+              <text x="100" y="128" text-anchor="middle" fill="#f0f6fc" font-family="system-ui,sans-serif" font-size="13" font-weight="700">4× iPhone HEIC</text>
+              <text x="100" y="148" text-anchor="middle" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="10">front · back · L · R</text>
+
+              <!-- Node 2A: Photogrammetry -->
+              <rect x="230" y="24" width="195" height="84" rx="10" fill="#0b1428" stroke="#38bdf8" stroke-width="1.5" />
+              <text x="327" y="48" text-anchor="middle" fill="#38bdf8" font-family="ui-monospace,monospace" font-size="10.5" font-weight="700">AGENT 1 · PHOTOGRAMMETRY</text>
+              <text x="327" y="69" text-anchor="middle" fill="#f0f6fc" font-family="system-ui,sans-serif" font-size="12.5" font-weight="700">CIE Lab 24-Slice Calib</text>
+              <text x="327" y="89" text-anchor="middle" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="10">3,800 px/m · 4× Ortho</text>
+
+              <!-- Node 2B: Face Repair -->
+              <rect x="230" y="140" width="195" height="84" rx="10" fill="#0b1428" stroke="#f4a8c5" stroke-width="1.5" />
+              <text x="327" y="164" text-anchor="middle" fill="#f4a8c5" font-family="ui-monospace,monospace" font-size="10.5" font-weight="700">AGENT 2 · FACE REPAIR</text>
+              <text x="327" y="185" text-anchor="middle" fill="#f0f6fc" font-family="system-ui,sans-serif" font-size="12.5" font-weight="700">-X → +X Crisp v3 Mirror</text>
+              <text x="327" y="205" text-anchor="middle" fill="#34d399" font-family="ui-monospace,monospace" font-size="10">99.69% Sym · 0.0 Hmap</text>
+
+              <!-- Node 3: Blender Live GUI -->
+              <rect x="478" y="56" width="222" height="136" rx="12" fill="#0d1b36" stroke="#00e5ff" stroke-width="2" />
+              <text x="589" y="84" text-anchor="middle" fill="#00e5ff" font-family="ui-monospace,monospace" font-size="11" font-weight="700">AGENT 3 · THE GRID GUI</text>
+              <text x="589" y="108" text-anchor="middle" fill="#f0f6fc" font-family="system-ui,sans-serif" font-size="14" font-weight="800">Blender 5.0.1 Live Bridge</text>
+              <text x="589" y="130" text-anchor="middle" fill="#bae6fd" font-family="ui-monospace,monospace" font-size="10.5">bpy.app.timers Atomic IPC</text>
+              <text x="589" y="150" text-anchor="middle" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="10">Stages 1–5 · Mirror-Before-Remesh</text>
+              <text x="589" y="172" text-anchor="middle" fill="#fbbf24" font-family="ui-monospace,monospace" font-size="10">0.7mm &amp; 0.45mm Voxel Solids</text>
+
+              <!-- Node 4: Verifier QA -->
+              <rect x="752" y="56" width="174" height="136" rx="10" fill="#0b1428" stroke="#34d399" stroke-width="1.8" />
+              <text x="839" y="84" text-anchor="middle" fill="#34d399" font-family="ui-monospace,monospace" font-size="10.5" font-weight="700">AGENT 4 · QA AUDIT</text>
+              <text x="839" y="108" text-anchor="middle" fill="#f0f6fc" font-family="system-ui,sans-serif" font-size="13" font-weight="800">verify_prototype.py</text>
+              <text x="839" y="132" text-anchor="middle" fill="#6ee7b7" font-family="ui-monospace,monospace" font-size="10">0 Boundary Edges</text>
+              <text x="839" y="150" text-anchor="middle" fill="#6ee7b7" font-family="ui-monospace,monospace" font-size="10">0 Non-Manifold</text>
+              <text x="839" y="168" text-anchor="middle" fill="#6ee7b7" font-family="ui-monospace,monospace" font-size="10">1 Shell · Euler χ = 2</text>
+
+              <!-- Node 5: Deliverables -->
+              <rect x="966" y="56" width="136" height="136" rx="10" fill="#0b1428" stroke="#fbbf24" stroke-width="1.5" />
+              <text x="1034" y="84" text-anchor="middle" fill="#fbbf24" font-family="ui-monospace,monospace" font-size="10.5" font-weight="700">5. READY</text>
+              <text x="1034" y="110" text-anchor="middle" fill="#f0f6fc" font-family="ui-monospace,monospace" font-size="11.5" font-weight="700">2× .STL (mm)</text>
+              <text x="1034" y="132" text-anchor="middle" fill="#e2e8f0" font-family="ui-monospace,monospace" font-size="11">.OBJ + .MTL</text>
+              <text x="1034" y="154" text-anchor="middle" fill="#e2e8f0" font-family="ui-monospace,monospace" font-size="11">.BLEND (5.0)</text>
+              <text x="1034" y="176" text-anchor="middle" fill="#38bdf8" font-family="ui-monospace,monospace" font-size="10">GitHub Pages</text>
+
+              <!-- Arrows -->
+              <path d="M 180 112 L 224 72" fill="none" stroke="#00e5ff" stroke-width="1.8" marker-end="url(#arrow-cyan)" />
+              <path d="M 180 136 L 224 176" fill="none" stroke="#00e5ff" stroke-width="1.8" marker-end="url(#arrow-cyan)" />
+              <path d="M 425 72 L 472 104" fill="none" stroke="#00e5ff" stroke-width="1.8" marker-end="url(#arrow-cyan)" />
+              <path d="M 425 176 L 472 144" fill="none" stroke="#00e5ff" stroke-width="1.8" marker-end="url(#arrow-cyan)" />
+              <path d="M 700 124 L 746 124" fill="none" stroke="#00e5ff" stroke-width="1.8" marker-end="url(#arrow-cyan)" />
+              <path d="M 926 124 L 960 124" fill="none" stroke="#00e5ff" stroke-width="1.8" marker-end="url(#arrow-cyan)" />
+            </svg>
+
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Audited Artifact (<code>work/qa_report.json</code>)</th>
+                    <th>Size</th>
+                    <th>Topology &amp; Geometry</th>
+                    <th>Envelope &amp; Volume</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>output/dumb_bunny_repaired.stl</code></td>
+                    <td>17.08 MB</td>
+                    <td>358,230 tris · 1 shell (Euler χ=2) · 0 boundary / 0 non-manifold</td>
+                    <td>139.57 × 95.55 × 184.01 mm · <strong>784.616 cm³</strong></td>
+                    <td><span class="badge-pass">WATERTIGHT ✓</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>output/dumb_bunny_face_mask_repaired.stl</code></td>
+                    <td>5.94 MB</td>
+                    <td>124,644 tris · 1 shell (Euler χ=2) · <strong>0.0029 mm X-RMS</strong></td>
+                    <td>58.56 × 26.84 × 56.47 mm · <strong>10.170 cm³</strong></td>
+                    <td><span class="badge-pass">WATERTIGHT ✓</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>output/dumb_bunny_repaired.obj</code> + <code>.mtl</code></td>
+                    <td>5.22 MB</td>
+                    <td>37,346 verts · 37,952 UV faces · 9 named parts · 3 PBR mats</td>
+                    <td>Companion <code>face_repaired.png</code> (865.1 KB)</td>
+                    <td><span class="badge-pass">PASS ✓</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>models/dumb_bunny.blend</code></td>
+                    <td>4.94 MB</td>
+                    <td>Valid <code>zstd</code>-compressed Blender 5.0.1 master scene</td>
+                    <td>Packed textures, 3-point AgX lights &amp; 4-view ortho rig</td>
+                    <td><span class="badge-pass">PASS ✓</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-card">
+              <div class="code-card-head">
+                <span>QUICKSTART // REPLAY LIVE BLENDER 5.0 SCULPT &amp; QA LOCALLY</span>
+                <button type="button" class="copy-btn" data-copy-target="quickstartCmd">Copy</button>
+              </div>
+              <pre id="quickstartCmd">git clone https://github.com/bsommers/dumb-bunny.git &amp;&amp; cd dumb-bunny
+python3 tracker/server.py 8765                  # Launch Live Mission Control HUD
+python3 src/verify_prototype.py                 # Re-verify watertight STLs &amp; symmetry
+/Applications/Blender.app/Contents/MacOS/Blender --python src/blender_live_bridge.py</pre>
+            </div>
+          </div>
+
+          <!-- TAB 2: 3D Printing Field Manual -->
+          <div id="panel-print" class="tab-panel" role="tabpanel" aria-labelledby="tab-print" hidden>
+            <div class="print-grid">
+              <div class="print-box">
+                <h3>Option A: Full Restored Figurine (FDM / PLA)</h3>
+                <div class="print-spec-line">dumb_bunny_repaired.stl · 139.57 × 95.55 × 184.01 mm · 784.616 cm³</div>
+                <div class="table-scroll">
+                  <table class="data-table">
+                    <tbody>
+                      <tr><th>Orientation</th><td>Upright — engineered flat bed cut at <code>Z = 0.000 mm</code></td></tr>
+                      <tr><th>Layer Height</th><td><strong>0.12 mm</strong> (or 0.16 mm variable) for crisp eye &amp; hood relief</td></tr>
+                      <tr><th>Walls / Infill</th><td>3 perimeters (~1.2 mm) · 15% Gyroid (or Lightning for display)</td></tr>
+                      <tr><th>Supports</th><td><strong>Tree / Organic</strong> (Build Plate Only, 30°–35°) under ears &amp; arms</td></tr>
+                      <tr><th>Ear Safety</th><td>Floppy paddle ears reinforced to <code>≥ 5.6 mm</code> thickness</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="print-box">
+                <h3>Option B: Resin / SLA &amp; Standalone Face Mask</h3>
+                <div class="print-spec-line">dumb_bunny_face_mask_repaired.stl · 58.56 × 26.84 × 56.47 mm · 10.170 cm³</div>
+                <div class="table-scroll">
+                  <table class="data-table">
+                    <tbody>
+                      <tr><th>Full Figurine SLA</th><td>Tilt <strong>25°–30° backward</strong> (zero supports on face!), 2.5 mm hollow + 4 mm bottom drain holes</td></tr>
+                      <tr><th>Face Mask SLA</th><td>Tilt 15°–20° back, <strong>0.03 mm layers</strong>, medium supports on concave rear only</td></tr>
+                      <tr><th>Face Mask FDM</th><td>0.08–0.12 mm layers — try <strong>TPU 95A</strong> for authentic vintage rubber squish!</td></tr>
+                      <tr><th>Symmetry Lock</th><td>Pre-remesh <code>-X → +X</code> mirror bisect = <strong>0.0029 mm RMS</strong> (0.005% of width)</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <h3 style="font-family:var(--mono);font-size:0.84rem;letter-spacing:0.12em;color:var(--pink-hi);margin-bottom:4px;">
+              AUTHENTIC VINTAGE PAINTING SWATCHES (SAMPLED DIRECTLY FROM ORIGINAL PHOTOS)
+            </h3>
+            <p style="font-size:0.85rem;color:var(--muted);">
+              Exact sRGB swatches extracted into <code>work/measurements.json</code> &amp; <code>work/face_blueprint.json</code> so your hand-painted print matches childhood Dumb Bunny:
+            </p>
+            <div class="swatch-grid">
+              <div class="swatch-card">
+                <span class="swatch-dot" style="background:#AF875E;"></span>
+                <div class="swatch-meta"><strong>Vintage Rubber Face</strong><span>#AF875E · Satin Varnish</span></div>
+              </div>
+              <div class="swatch-card">
+                <span class="swatch-dot" style="background:#C2986B;"></span>
+                <div class="swatch-meta"><strong>Face Highlight</strong><span>#C2986B · Forehead &amp; Muzzle</span></div>
+              </div>
+              <div class="swatch-card">
+                <span class="swatch-dot" style="background:#B98C5D;"></span>
+                <div class="swatch-meta"><strong>Outer Cheek Blush</strong><span>#B98C5D · Soft Dry-Brush</span></div>
+              </div>
+              <div class="swatch-card">
+                <span class="swatch-dot" style="background:#944536;"></span>
+                <div class="swatch-meta"><strong>Button Nose</strong><span>#944536 · Dusty Coral Tip</span></div>
+              </div>
+              <div class="swatch-card">
+                <span class="swatch-dot" style="background:#3C6885;"></span>
+                <div class="swatch-meta"><strong>Side-Glancing Eyes</strong><span>#3C6885 · Gloss Coat Drop</span></div>
+              </div>
+              <div class="swatch-card">
+                <span class="swatch-dot" style="background:#967274;"></span>
+                <div class="swatch-meta"><strong>Hood &amp; Onesie Velour</strong><span>#967274 · Matte / Flock</span></div>
+              </div>
+              <div class="swatch-card">
+                <span class="swatch-dot" style="background:#856845;"></span>
+                <div class="swatch-meta"><strong>Arms, Feet &amp; Ears</strong><span>#856845 · Aged Olive Cloth</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: Full-Res Downloads & Docs -->
+          <div id="panel-downloads" class="tab-panel" role="tabpanel" aria-labelledby="tab-downloads" hidden>
+            <div class="download-grid">
+              <article class="download-card">
+                <div>
+                  <h3>dumb_bunny_repaired.stl</h3>
+                  <p>Primary full-resolution 184 mm watertight figurine (358,230 tris, 1 shell, flat Z=0 bed pad).</p>
+                </div>
+                <div class="download-meta"><span>17.08 MB · Binary STL (mm)</span><span>WATERTIGHT ✓</span></div>
+                <a class="btn btn-primary" href="https://github.com/bsommers/dumb-bunny/raw/main/output/dumb_bunny_repaired.stl">Download Full STL ⬇</a>
+              </article>
+
+              <article class="download-card">
+                <div>
+                  <h3>dumb_bunny_face_mask_repaired.stl</h3>
+                  <p>Standalone 3.5 mm bionic replacement face mask (124,644 tris, 0.0029 mm bilateral X-symmetry RMS).</p>
+                </div>
+                <div class="download-meta"><span>5.94 MB · Binary STL (mm)</span><span>WATERTIGHT ✓</span></div>
+                <a class="btn btn-pink" href="https://github.com/bsommers/dumb-bunny/raw/main/output/dumb_bunny_face_mask_repaired.stl">Download Face Mask STL ⬇</a>
+              </article>
+
+              <article class="download-card">
+                <div>
+                  <h3>dumb_bunny_repaired.obj</h3>
+                  <p>Textured 9-part Wavefront OBJ (37,952 UV faces). Grab companion <code>.mtl</code> &amp; <code>face_repaired.png</code> alongside.</p>
+                </div>
+                <div class="download-meta"><span>5.22 MB · Wavefront OBJ</span><span>3 PBR MATS</span></div>
+                <div class="btn-group">
+                  <a class="btn btn-ghost" href="https://github.com/bsommers/dumb-bunny/raw/main/output/dumb_bunny_repaired.obj">OBJ ⬇</a>
+                  <a class="btn btn-ghost" href="https://github.com/bsommers/dumb-bunny/raw/main/output/dumb_bunny_repaired.mtl">MTL ⬇</a>
+                  <a class="btn btn-ghost" href="https://github.com/bsommers/dumb-bunny/raw/main/output/face_repaired.png">PNG ⬇</a>
+                </div>
+              </article>
+
+              <article class="download-card">
+                <div>
+                  <h3>models/dumb_bunny.blend</h3>
+                  <p>Editable Blender 5.0.1 master scene with packed textures, PBR shaders, 3-point lighting &amp; 4-view ortho rig.</p>
+                </div>
+                <div class="download-meta"><span>4.94 MB · Blender 5.0 (zstd)</span><span>PACKED ✓</span></div>
+                <a class="btn btn-ghost" href="https://github.com/bsommers/dumb-bunny/raw/main/models/dumb_bunny.blend">Download .BLEND ⬇</a>
+              </article>
+
+              <article class="download-card">
+                <div>
+                  <h3>System Architecture Doc</h3>
+                  <p>Deep engineering schematics: CIE Lab segmentation, Crisp v3 repair math, Blender IPC protocol &amp; Mermaid charts.</p>
+                </div>
+                <div class="download-meta"><span>docs/ARCHITECTURE.md</span><span>MARKDOWN</span></div>
+                <a class="btn btn-ghost" href="https://github.com/bsommers/dumb-bunny/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Read ARCHITECTURE.md ↗</a>
+              </article>
+
+              <article class="download-card">
+                <div>
+                  <h3>Operator &amp; Printing Guide</h3>
+                  <p>Step-by-step live Blender IPC tutorial, customization guide, troubleshooting &amp; full 3D printing field manual.</p>
+                </div>
+                <div class="download-meta"><span>docs/USER_GUIDE.md</span><span>MARKDOWN</span></div>
+                <a class="btn btn-ghost" href="https://github.com/bsommers/dumb-bunny/blob/main/docs/USER_GUIDE.md" target="_blank" rel="noopener">Read USER_GUIDE.md ↗</a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Native Accessible <dialog> Lightbox -->
+  <dialog id="lightboxDialog" class="lightbox" closedby="any" aria-labelledby="lightboxTitle">
+    <div class="lightbox-head">
+      <h2 id="lightboxTitle" class="lightbox-title">Image Preview</h2>
+      <div class="btn-group">
+        <button type="button" class="toggle-btn" id="lightboxPrevBtn" aria-label="Previous image">← Prev</button>
+        <button type="button" class="toggle-btn" id="lightboxNextBtn" aria-label="Next image">Next →</button>
+        <button type="button" class="toggle-btn" id="lightboxCloseBtn" aria-label="Close lightbox">✕ Close</button>
+      </div>
+    </div>
+    <div class="lightbox-media">
+      <img id="lightboxImg" src="assets/site/05_hero_34.webp" alt="" />
+    </div>
+    <div class="lightbox-foot">
+      <p id="lightboxCaption" class="lightbox-caption"></p>
+      <span id="lightboxCounter" style="font-family:var(--mono);font-size:0.74rem;color:var(--cyan);"></span>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-motto">⚡ I FIGHT FOR THE PLUSH · DEREZZING SCOTCH TAPE &amp; VINYL FRACTURES SINCE 2026 · END OF LINE ⚡</p>
+      <p>
+        Built with 3,800 px/m photogrammetry, 0.7 mm watertight voxels, Blender 5.0.1 Live GUI &amp; 100% childhood nostalgia. ·
+        <a href="https://github.com/bsommers/dumb-bunny" target="_blank" rel="noopener">github.com/bsommers/dumb-bunny</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
