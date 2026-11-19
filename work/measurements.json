@@ -1,0 +1,825 @@
+{
+  "schema_version": "1.0",
+  "subject": "Dumb Bunny (Vintage Rubber-Face Plush Doll)",
+  "coordinate_system": {
+    "units": "meters",
+    "up": "+Z (bottom at Z=0.0, top at Z=0.180)",
+    "front": "-Y",
+    "back": "+Y",
+    "bunny_right_viewer_left": "-X",
+    "bunny_left_viewer_right": "+X"
+  },
+  "overall_dimensions": {
+    "height_m": 0.18,
+    "height_mm": 180.0,
+    "body_width_m": 0.08802,
+    "body_width_mm": 88.02,
+    "total_width_with_ear_m": 0.10236,
+    "total_width_with_ear_mm": 102.36,
+    "depth_m": 0.09026,
+    "depth_mm": 90.26
+  },
+  "ortho_plates": {
+    "resolution": [
+      600,
+      800
+    ],
+    "px_per_m": 3800.0,
+    "mm_per_px": 0.2632,
+    "bunny_top_px": 58,
+    "bunny_bottom_px": 742,
+    "center_x_px": 300,
+    "plane_width_m": 0.15789,
+    "plane_height_m": 0.21053,
+    "plane_z_min_m": -0.01526,
+    "plane_z_max_m": 0.19526,
+    "plane_center_z_m": 0.09,
+    "files": {
+      "front": "work/ref_images/ortho_front.png",
+      "back": "work/ref_images/ortho_back.png",
+      "left": "work/ref_images/ortho_left.png",
+      "right": "work/ref_images/ortho_right.png"
+    },
+    "orientation_notes": {
+      "ortho_front.png": "Viewed from -Y looking +Y; image left = -X (bunny right), image right = +X (bunny left)",
+      "ortho_back.png": "Viewed from +Y looking -Y; image left = +X (bunny left), image right = -X (bunny right)",
+      "ortho_left.png": "Viewed from +X looking -X; bunny faces image LEFT (-Y), back is image RIGHT (+Y)",
+      "ortho_right.png": "Viewed from -X looking +X; bunny faces image RIGHT (-Y), back is image LEFT (+Y)"
+    }
+  },
+  "slices_24": [
+    {
+      "index": 0,
+      "z_norm": 0.02,
+      "z_m": 0.0036,
+      "front_x_min_m": -0.04395,
+      "front_x_max_m": -0.00421,
+      "front_half_width_m": 0.01987,
+      "back_half_width_m": 0.00382,
+      "body_half_width_m": 0.01184,
+      "side_front_y_m": -0.02645,
+      "side_back_y_m": -0.00934,
+      "depth_m": 0.01711,
+      "torso_center_y_m": -0.01789
+    },
+    {
+      "index": 1,
+      "z_norm": 0.0617,
+      "z_m": 0.01111,
+      "front_x_min_m": -0.05368,
+      "front_x_max_m": 0.02026,
+      "front_half_width_m": 0.03697,
+      "back_half_width_m": 0.02132,
+      "body_half_width_m": 0.02914,
+      "side_front_y_m": -0.04276,
+      "side_back_y_m": 0.01921,
+      "depth_m": 0.06197,
+      "torso_center_y_m": -0.01178
+    },
+    {
+      "index": 2,
+      "z_norm": 0.1035,
+      "z_m": 0.01863,
+      "front_x_min_m": -0.05763,
+      "front_x_max_m": 0.02632,
+      "front_half_width_m": 0.04197,
+      "back_half_width_m": 0.03132,
+      "body_half_width_m": 0.03664,
+      "side_front_y_m": -0.04961,
+      "side_back_y_m": 0.02776,
+      "depth_m": 0.07737,
+      "torso_center_y_m": -0.01092
+    },
+    {
+      "index": 3,
+      "z_norm": 0.1452,
+      "z_m": 0.02614,
+      "front_x_min_m": -0.05789,
+      "front_x_max_m": 0.03316,
+      "front_half_width_m": 0.04553,
+      "back_half_width_m": 0.03553,
+      "body_half_width_m": 0.04053,
+      "side_front_y_m": -0.05184,
+      "side_back_y_m": 0.03158,
+      "depth_m": 0.08342,
+      "torso_center_y_m": -0.01013
+    },
+    {
+      "index": 4,
+      "z_norm": 0.187,
+      "z_m": 0.03365,
+      "front_x_min_m": -0.05684,
+      "front_x_max_m": 0.03842,
+      "front_half_width_m": 0.04763,
+      "back_half_width_m": 0.03842,
+      "body_half_width_m": 0.04303,
+      "side_front_y_m": -0.05553,
+      "side_back_y_m": 0.03434,
+      "depth_m": 0.08987,
+      "torso_center_y_m": -0.01059
+    },
+    {
+      "index": 5,
+      "z_norm": 0.2287,
+      "z_m": 0.04117,
+      "front_x_min_m": -0.05684,
+      "front_x_max_m": 0.04105,
+      "front_half_width_m": 0.04895,
+      "back_half_width_m": 0.03908,
+      "body_half_width_m": 0.04401,
+      "side_front_y_m": -0.05461,
+      "side_back_y_m": 0.03566,
+      "depth_m": 0.09026,
+      "torso_center_y_m": -0.00947
+    },
+    {
+      "index": 6,
+      "z_norm": 0.2704,
+      "z_m": 0.04868,
+      "front_x_min_m": -0.055,
+      "front_x_max_m": 0.04158,
+      "front_half_width_m": 0.04829,
+      "back_half_width_m": 0.03921,
+      "body_half_width_m": 0.04375,
+      "side_front_y_m": -0.05263,
+      "side_back_y_m": 0.03539,
+      "depth_m": 0.08803,
+      "torso_center_y_m": -0.00862
+    },
+    {
+      "index": 7,
+      "z_norm": 0.3122,
+      "z_m": 0.05619,
+      "front_x_min_m": -0.04079,
+      "front_x_max_m": 0.04079,
+      "front_half_width_m": 0.04079,
+      "back_half_width_m": 0.03461,
+      "body_half_width_m": 0.0377,
+      "side_front_y_m": -0.04961,
+      "side_back_y_m": 0.03513,
+      "depth_m": 0.08474,
+      "torso_center_y_m": -0.00724
+    },
+    {
+      "index": 8,
+      "z_norm": 0.3539,
+      "z_m": 0.0637,
+      "front_x_min_m": -0.03737,
+      "front_x_max_m": 0.04,
+      "front_half_width_m": 0.03868,
+      "back_half_width_m": 0.03382,
+      "body_half_width_m": 0.03625,
+      "side_front_y_m": -0.03461,
+      "side_back_y_m": 0.035,
+      "depth_m": 0.06961,
+      "torso_center_y_m": 0.0002
+    },
+    {
+      "index": 9,
+      "z_norm": 0.3957,
+      "z_m": 0.07122,
+      "front_x_min_m": -0.03632,
+      "front_x_max_m": 0.03816,
+      "front_half_width_m": 0.03724,
+      "back_half_width_m": 0.03408,
+      "body_half_width_m": 0.03566,
+      "side_front_y_m": -0.03395,
+      "side_back_y_m": 0.03447,
+      "depth_m": 0.06842,
+      "torso_center_y_m": 0.00026
+    },
+    {
+      "index": 10,
+      "z_norm": 0.4374,
+      "z_m": 0.07873,
+      "front_x_min_m": -0.03895,
+      "front_x_max_m": 0.03658,
+      "front_half_width_m": 0.03776,
+      "back_half_width_m": 0.03368,
+      "body_half_width_m": 0.03572,
+      "side_front_y_m": -0.03316,
+      "side_back_y_m": 0.03329,
+      "depth_m": 0.06645,
+      "torso_center_y_m": 7e-05
+    },
+    {
+      "index": 11,
+      "z_norm": 0.4791,
+      "z_m": 0.08624,
+      "front_x_min_m": -0.03816,
+      "front_x_max_m": 0.03868,
+      "front_half_width_m": 0.03842,
+      "back_half_width_m": 0.03105,
+      "body_half_width_m": 0.03474,
+      "side_front_y_m": -0.03092,
+      "side_back_y_m": 0.03211,
+      "depth_m": 0.06303,
+      "torso_center_y_m": 0.00059
+    },
+    {
+      "index": 12,
+      "z_norm": 0.5209,
+      "z_m": 0.09376,
+      "front_x_min_m": -0.03763,
+      "front_x_max_m": 0.03921,
+      "front_half_width_m": 0.03842,
+      "back_half_width_m": 0.03224,
+      "body_half_width_m": 0.03533,
+      "side_front_y_m": -0.02987,
+      "side_back_y_m": 0.03132,
+      "depth_m": 0.06118,
+      "torso_center_y_m": 0.00072
+    },
+    {
+      "index": 13,
+      "z_norm": 0.5626,
+      "z_m": 0.10127,
+      "front_x_min_m": -0.03658,
+      "front_x_max_m": 0.04,
+      "front_half_width_m": 0.03829,
+      "back_half_width_m": 0.03092,
+      "body_half_width_m": 0.03461,
+      "side_front_y_m": -0.02842,
+      "side_back_y_m": 0.03,
+      "depth_m": 0.05842,
+      "torso_center_y_m": 0.00079
+    },
+    {
+      "index": 14,
+      "z_norm": 0.6043,
+      "z_m": 0.10878,
+      "front_x_min_m": -0.05237,
+      "front_x_max_m": 0.04184,
+      "front_half_width_m": 0.04711,
+      "back_half_width_m": 0.02947,
+      "body_half_width_m": 0.03829,
+      "side_front_y_m": -0.03211,
+      "side_back_y_m": 0.02763,
+      "depth_m": 0.05974,
+      "torso_center_y_m": -0.00224
+    },
+    {
+      "index": 15,
+      "z_norm": 0.6461,
+      "z_m": 0.1163,
+      "front_x_min_m": -0.04868,
+      "front_x_max_m": 0.04105,
+      "front_half_width_m": 0.04487,
+      "back_half_width_m": 0.02697,
+      "body_half_width_m": 0.03592,
+      "side_front_y_m": -0.03579,
+      "side_back_y_m": 0.02895,
+      "depth_m": 0.06474,
+      "torso_center_y_m": -0.00342
+    },
+    {
+      "index": 16,
+      "z_norm": 0.6878,
+      "z_m": 0.12381,
+      "front_x_min_m": -0.04368,
+      "front_x_max_m": 0.03763,
+      "front_half_width_m": 0.04066,
+      "back_half_width_m": 0.03039,
+      "body_half_width_m": 0.03553,
+      "side_front_y_m": -0.04066,
+      "side_back_y_m": 0.02974,
+      "depth_m": 0.07039,
+      "torso_center_y_m": -0.00546
+    },
+    {
+      "index": 17,
+      "z_norm": 0.7296,
+      "z_m": 0.13132,
+      "front_x_min_m": -0.04605,
+      "front_x_max_m": 0.03658,
+      "front_half_width_m": 0.04132,
+      "back_half_width_m": 0.02987,
+      "body_half_width_m": 0.03461,
+      "side_front_y_m": -0.04105,
+      "side_back_y_m": 0.03184,
+      "depth_m": 0.07289,
+      "torso_center_y_m": -0.00461
+    },
+    {
+      "index": 18,
+      "z_norm": 0.7713,
+      "z_m": 0.13883,
+      "front_x_min_m": -0.04605,
+      "front_x_max_m": 0.03158,
+      "front_half_width_m": 0.03882,
+      "back_half_width_m": 0.02908,
+      "body_half_width_m": 0.03289,
+      "side_front_y_m": -0.04066,
+      "side_back_y_m": 0.0325,
+      "depth_m": 0.07316,
+      "torso_center_y_m": -0.00408
+    },
+    {
+      "index": 19,
+      "z_norm": 0.813,
+      "z_m": 0.14635,
+      "front_x_min_m": -0.04842,
+      "front_x_max_m": 0.03079,
+      "front_half_width_m": 0.03961,
+      "back_half_width_m": 0.02789,
+      "body_half_width_m": 0.03362,
+      "side_front_y_m": -0.03816,
+      "side_back_y_m": 0.03224,
+      "depth_m": 0.07039,
+      "torso_center_y_m": -0.00296
+    },
+    {
+      "index": 20,
+      "z_norm": 0.8548,
+      "z_m": 0.15386,
+      "front_x_min_m": -0.06974,
+      "front_x_max_m": 0.02711,
+      "front_half_width_m": 0.04842,
+      "back_half_width_m": 0.02526,
+      "body_half_width_m": 0.03026,
+      "side_front_y_m": -0.03592,
+      "side_back_y_m": 0.03105,
+      "depth_m": 0.06697,
+      "torso_center_y_m": -0.00243
+    },
+    {
+      "index": 21,
+      "z_norm": 0.8965,
+      "z_m": 0.16137,
+      "front_x_min_m": -0.07868,
+      "front_x_max_m": 0.02368,
+      "front_half_width_m": 0.05118,
+      "back_half_width_m": 0.02197,
+      "body_half_width_m": 0.02757,
+      "side_front_y_m": -0.03303,
+      "side_back_y_m": 0.02974,
+      "depth_m": 0.06276,
+      "torso_center_y_m": -0.00164
+    },
+    {
+      "index": 22,
+      "z_norm": 0.9383,
+      "z_m": 0.16889,
+      "front_x_min_m": -0.07711,
+      "front_x_max_m": 0.01895,
+      "front_half_width_m": 0.04803,
+      "back_half_width_m": 0.01855,
+      "body_half_width_m": 0.02526,
+      "side_front_y_m": -0.03158,
+      "side_back_y_m": 0.02763,
+      "depth_m": 0.05921,
+      "torso_center_y_m": -0.00197
+    },
+    {
+      "index": 23,
+      "z_norm": 0.98,
+      "z_m": 0.1764,
+      "front_x_min_m": -0.06579,
+      "front_x_max_m": 0.01105,
+      "front_half_width_m": 0.03842,
+      "back_half_width_m": 0.01039,
+      "body_half_width_m": 0.0223,
+      "side_front_y_m": -0.01013,
+      "side_back_y_m": 0.01526,
+      "depth_m": 0.02539,
+      "torso_center_y_m": 0.00257
+    }
+  ],
+  "landmarks": {
+    "head": {
+      "center": [
+        0.0,
+        -0.00314,
+        0.14815
+      ],
+      "radius_x_m": 0.03233,
+      "radius_y_m": 0.03383,
+      "radius_z_m": 0.02994,
+      "hood_outer_radius_x_m": 0.03592,
+      "hood_outer_radius_y_m": 0.03678,
+      "hood_outer_radius_z_m": 0.03185,
+      "crown_z_m": 0.18,
+      "front_y_m": -0.04105,
+      "back_y_m": 0.0325
+    },
+    "face_oval": {
+      "center": [
+        0.0,
+        -0.0425,
+        0.14615
+      ],
+      "width_m": 0.05334,
+      "height_m": 0.0494,
+      "half_width_m": 0.02667,
+      "half_height_m": 0.0247,
+      "x_min_m": -0.02667,
+      "x_max_m": 0.02667,
+      "z_min_m": 0.12145,
+      "z_max_m": 0.17085,
+      "y_front_surface_m": -0.04842,
+      "hood_rim_y_m": -0.03526,
+      "y_protrusion_m": 0.01316
+    },
+    "neck_pinch": {
+      "z_m": 0.1163,
+      "half_width_m": 0.02697,
+      "front_half_width_m": 0.03592,
+      "depth_m": 0.06474,
+      "center_y_m": -0.00342,
+      "front_y_m": -0.03579,
+      "back_y_m": 0.02895
+    },
+    "torso": {
+      "z_min_m": 0.0,
+      "z_max_m": 0.1163,
+      "center_y_m": -0.00429,
+      "max_width_m": 0.08802,
+      "max_width_z_m": 0.04117,
+      "max_depth_m": 0.09026,
+      "max_depth_z_m": 0.04117,
+      "belly_profile": [
+        {
+          "z_m": 0.01863,
+          "y_m": -0.04961
+        },
+        {
+          "z_m": 0.02614,
+          "y_m": -0.05184
+        },
+        {
+          "z_m": 0.03365,
+          "y_m": -0.05553
+        },
+        {
+          "z_m": 0.04117,
+          "y_m": -0.05461
+        },
+        {
+          "z_m": 0.04868,
+          "y_m": -0.05263
+        },
+        {
+          "z_m": 0.05619,
+          "y_m": -0.04961
+        },
+        {
+          "z_m": 0.0637,
+          "y_m": -0.03461
+        },
+        {
+          "z_m": 0.07122,
+          "y_m": -0.03395
+        },
+        {
+          "z_m": 0.07873,
+          "y_m": -0.03316
+        },
+        {
+          "z_m": 0.08624,
+          "y_m": -0.03092
+        },
+        {
+          "z_m": 0.09376,
+          "y_m": -0.02987
+        },
+        {
+          "z_m": 0.10127,
+          "y_m": -0.02842
+        },
+        {
+          "z_m": 0.10878,
+          "y_m": -0.03211
+        },
+        {
+          "z_m": 0.1163,
+          "y_m": -0.03579
+        }
+      ],
+      "back_profile": [
+        {
+          "z_m": 0.01863,
+          "y_m": 0.02776
+        },
+        {
+          "z_m": 0.02614,
+          "y_m": 0.03158
+        },
+        {
+          "z_m": 0.03365,
+          "y_m": 0.03434
+        },
+        {
+          "z_m": 0.04117,
+          "y_m": 0.03566
+        },
+        {
+          "z_m": 0.04868,
+          "y_m": 0.03539
+        },
+        {
+          "z_m": 0.05619,
+          "y_m": 0.03513
+        },
+        {
+          "z_m": 0.0637,
+          "y_m": 0.035
+        },
+        {
+          "z_m": 0.07122,
+          "y_m": 0.03447
+        },
+        {
+          "z_m": 0.07873,
+          "y_m": 0.03329
+        },
+        {
+          "z_m": 0.08624,
+          "y_m": 0.03211
+        },
+        {
+          "z_m": 0.09376,
+          "y_m": 0.03132
+        },
+        {
+          "z_m": 0.10127,
+          "y_m": 0.03
+        },
+        {
+          "z_m": 0.10878,
+          "y_m": 0.02763
+        },
+        {
+          "z_m": 0.1163,
+          "y_m": 0.02895
+        }
+      ]
+    },
+    "arms": {
+      "left": {
+        "side": "+X",
+        "center": [
+          0.03092,
+          0.00724,
+          0.10566
+        ],
+        "radius_x_m": 0.01,
+        "radius_y_m": 0.01013,
+        "radius_z_m": 0.01395,
+        "length_m": 0.02789,
+        "tilt_deg": 20.0
+      },
+      "right": {
+        "side": "-X",
+        "center": [
+          -0.03092,
+          0.00724,
+          0.10566
+        ],
+        "radius_x_m": 0.01,
+        "radius_y_m": 0.01013,
+        "radius_z_m": 0.01395,
+        "length_m": 0.02789,
+        "tilt_deg": -20.0
+      }
+    },
+    "feet": {
+      "left": {
+        "side": "+X",
+        "center": [
+          0.03678,
+          -0.02217,
+          0.03921
+        ],
+        "radius_x_m": 0.01191,
+        "radius_y_m": 0.01664,
+        "radius_z_m": 0.02375,
+        "width_m": 0.02382,
+        "length_m": 0.03329,
+        "height_m": 0.0475,
+        "yaw_deg": -14.0
+      },
+      "right": {
+        "side": "-X",
+        "center": [
+          -0.03678,
+          -0.02217,
+          0.03921
+        ],
+        "radius_x_m": 0.01191,
+        "radius_y_m": 0.01664,
+        "radius_z_m": 0.02375,
+        "width_m": 0.02382,
+        "length_m": 0.03329,
+        "height_m": 0.0475,
+        "yaw_deg": 14.0
+      }
+    },
+    "ears": {
+      "length_m": 0.056,
+      "width_m": 0.02543,
+      "thickness_m": 0.0055,
+      "left": {
+        "side": "+X",
+        "base": [
+          0.0158,
+          -0.01457,
+          0.172
+        ],
+        "length_m": 0.056,
+        "width_m": 0.02543,
+        "thickness_m": 0.0055,
+        "splay_angle_deg": 48.0,
+        "flop_forward_deg": 18.0
+      },
+      "right": {
+        "side": "-X",
+        "base": [
+          -0.0158,
+          -0.01457,
+          0.172
+        ],
+        "length_m": 0.056,
+        "width_m": 0.02543,
+        "thickness_m": 0.0055,
+        "splay_angle_deg": -48.0,
+        "flop_forward_deg": 18.0
+      }
+    }
+  },
+  "colors": {
+    "pink_velour": {
+      "hex": "#967274",
+      "srgb_255": [
+        150,
+        114,
+        116
+      ],
+      "srgb_01": [
+        0.5882,
+        0.4471,
+        0.4549
+      ],
+      "linear_rgb": [
+        0.3049,
+        0.1683,
+        0.1746
+      ]
+    },
+    "pink_velour_shadow": {
+      "hex": "#6f494e",
+      "srgb_255": [
+        111,
+        73,
+        78
+      ],
+      "srgb_01": [
+        0.4353,
+        0.2863,
+        0.3059
+      ],
+      "linear_rgb": [
+        0.159,
+        0.0666,
+        0.0762
+      ]
+    },
+    "olive_cloth": {
+      "hex": "#856845",
+      "srgb_255": [
+        133,
+        104,
+        69
+      ],
+      "srgb_01": [
+        0.5216,
+        0.4078,
+        0.2706
+      ],
+      "linear_rgb": [
+        0.2346,
+        0.1384,
+        0.0595
+      ]
+    },
+    "rubber_skin": {
+      "hex": "#c5a179",
+      "srgb_255": [
+        197,
+        161,
+        121
+      ],
+      "srgb_01": [
+        0.7725,
+        0.6314,
+        0.4745
+      ],
+      "linear_rgb": [
+        0.5583,
+        0.3564,
+        0.1912
+      ]
+    },
+    "eye_blue": {
+      "hex": "#366687",
+      "srgb_255": [
+        54,
+        102,
+        135
+      ],
+      "srgb_01": [
+        0.2118,
+        0.4,
+        0.5294
+      ],
+      "linear_rgb": [
+        0.0369,
+        0.1329,
+        0.2423
+      ]
+    },
+    "nose_pink": {
+      "hex": "#924c3c",
+      "srgb_255": [
+        146,
+        76,
+        60
+      ],
+      "srgb_01": [
+        0.5725,
+        0.298,
+        0.2353
+      ],
+      "linear_rgb": [
+        0.2874,
+        0.0723,
+        0.0452
+      ]
+    }
+  },
+  "views_metadata": {
+    "front": {
+      "source_file": "work/ref_images/front_preview.png",
+      "ortho_file": "work/ref_images/ortho_front.png",
+      "source_resolution": [
+        900,
+        1200
+      ],
+      "mask_area_ratio": 0.2677,
+      "raw_bbox_px": [
+        156,
+        245,
+        695,
+        1045
+      ],
+      "raw_aspect_w_over_h": 0.6737
+    },
+    "back": {
+      "source_file": "work/ref_images/back.png",
+      "ortho_file": "work/ref_images/ortho_back.png",
+      "source_resolution": [
+        450,
+        600
+      ],
+      "mask_area_ratio": 0.2928,
+      "raw_bbox_px": [
+        128,
+        55,
+        351,
+        552
+      ],
+      "raw_aspect_w_over_h": 0.4487
+    },
+    "left_side": {
+      "source_file": "work/ref_images/left_side.png",
+      "ortho_file": "work/ref_images/ortho_left.png",
+      "source_resolution": [
+        450,
+        600
+      ],
+      "mask_area_ratio": 0.3814,
+      "raw_bbox_px": [
+        67,
+        55,
+        317,
+        575
+      ],
+      "raw_aspect_w_over_h": 0.4808
+    },
+    "right_side": {
+      "source_file": "work/ref_images/right_side.png",
+      "ortho_file": "work/ref_images/ortho_right.png",
+      "source_resolution": [
+        450,
+        600
+      ],
+      "mask_area_ratio": 0.3626,
+      "raw_bbox_px": [
+        116,
+        39,
+        393,
+        548
+      ],
+      "raw_aspect_w_over_h": 0.5442
+    }
+  }
+}

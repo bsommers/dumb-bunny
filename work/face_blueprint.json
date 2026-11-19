@@ -1,0 +1,280 @@
+{
+  "schema_version": "1.2",
+  "subject": "Dumb Bunny Vintage Rubber Face Mask (Bionically Repaired \u2014 Crisp v3)",
+  "texture_resolution": [
+    1024,
+    1024
+  ],
+  "anatomical_orientation": {
+    "donor_side": "bunny-right (viewer-left in front.png, Blender -X)",
+    "repaired_side": "bunny-left (viewer-right in front.png, Blender +X)"
+  },
+  "files": {
+    "face_damaged_aligned": "work/textures/face_damaged_aligned.png",
+    "face_repaired": "work/textures/face_repaired.png",
+    "face_repair_mask": "work/textures/face_repair_mask.png",
+    "face_heightmap_png": "work/textures/face_heightmap_repaired.png",
+    "face_heightmap_npy": "work/textures/face_heightmap_repaired.npy"
+  },
+  "alignment": {
+    "source_image": "work/ref_images/front.png",
+    "source_size": [
+      4284,
+      5712
+    ],
+    "detected_left_iris_px": [
+      1560.6,
+      2074.0
+    ],
+    "detected_right_iris_px": [
+      2284.2,
+      1736.1
+    ],
+    "detected_eye_axis_deg": -25.03,
+    "applied_rotation_deg_ccw": -25.03,
+    "pivot_px": [
+      1985.0,
+      1900.0
+    ],
+    "crop_size_src_px": 1370,
+    "output_size_px": [
+      1024,
+      1024
+    ],
+    "midline_x": 512
+  },
+  "landmarks_normalized": {
+    "midline_x": 0.5,
+    "face_oval": {
+      "cx": 0.5,
+      "cy": 0.5,
+      "rx": 0.448,
+      "ry": 0.458
+    },
+    "forehead_center": [
+      0.5,
+      0.255
+    ],
+    "left_eye_center": [
+      0.218,
+      0.482
+    ],
+    "right_eye_center": [
+      0.782,
+      0.482
+    ],
+    "left_eye_inner": [
+      0.318,
+      0.495
+    ],
+    "right_eye_inner": [
+      0.682,
+      0.495
+    ],
+    "left_eye_outer": [
+      0.118,
+      0.49
+    ],
+    "right_eye_outer": [
+      0.882,
+      0.49
+    ],
+    "eye_rx": 0.106,
+    "eye_ry": 0.066,
+    "nose_tip": [
+      0.5,
+      0.556
+    ],
+    "nose_bridge": [
+      0.5,
+      0.49
+    ],
+    "philtrum_top": [
+      0.5,
+      0.598
+    ],
+    "philtrum_bottom": [
+      0.5,
+      0.762
+    ],
+    "left_muzzle_pad": [
+      0.404,
+      0.676
+    ],
+    "right_muzzle_pad": [
+      0.596,
+      0.676
+    ],
+    "left_cheek": [
+      0.205,
+      0.672
+    ],
+    "right_cheek": [
+      0.795,
+      0.672
+    ],
+    "mouth_tuck": [
+      0.5,
+      0.785
+    ],
+    "chin_center": [
+      0.5,
+      0.858
+    ]
+  },
+  "sampled_colors": {
+    "rubber_skin": {
+      "rgb255": [
+        175,
+        135,
+        94
+      ],
+      "rgb01": [
+        0.6863,
+        0.5294,
+        0.3686
+      ],
+      "hex": "#AF875E"
+    },
+    "rubber_skin_highlight": {
+      "rgb255": [
+        194,
+        152,
+        107
+      ],
+      "rgb01": [
+        0.7608,
+        0.5961,
+        0.4196
+      ],
+      "hex": "#C2986B"
+    },
+    "rubber_skin_shadow": {
+      "rgb255": [
+        150,
+        112,
+        75
+      ],
+      "rgb01": [
+        0.5882,
+        0.4392,
+        0.2941
+      ],
+      "hex": "#96704B"
+    },
+    "cheek_blush": {
+      "rgb255": [
+        185,
+        140,
+        93
+      ],
+      "rgb01": [
+        0.7255,
+        0.549,
+        0.3647
+      ],
+      "hex": "#B98C5D"
+    },
+    "muzzle_cream": {
+      "rgb255": [
+        176,
+        132,
+        84
+      ],
+      "rgb01": [
+        0.6902,
+        0.5176,
+        0.3294
+      ],
+      "hex": "#B08454"
+    },
+    "eye_blue": {
+      "rgb255": [
+        60,
+        104,
+        133
+      ],
+      "rgb01": [
+        0.2353,
+        0.4078,
+        0.5216
+      ],
+      "hex": "#3C6885"
+    },
+    "eye_sclera": {
+      "rgb255": [
+        226,
+        226,
+        228
+      ],
+      "rgb01": [
+        0.8863,
+        0.8863,
+        0.8941
+      ],
+      "hex": "#E2E2E4"
+    },
+    "eyelash_black": {
+      "rgb255": [
+        22,
+        24,
+        28
+      ],
+      "rgb01": [
+        0.0863,
+        0.0941,
+        0.1098
+      ],
+      "hex": "#16181C"
+    },
+    "nose_pink": {
+      "rgb255": [
+        148,
+        69,
+        54
+      ],
+      "rgb01": [
+        0.5804,
+        0.2706,
+        0.2118
+      ],
+      "hex": "#944536"
+    }
+  },
+  "symmetry_metrics": {
+    "before": {
+      "overall_symmetry_pct": 76.63,
+      "skin_structure_symmetry_pct": 79.8,
+      "mae_rgb_all": 25.15,
+      "rms_rgb_all": 39.04,
+      "pearson_r_all": 0.5155,
+      "mae_rgb_skin": 22.53,
+      "pearson_r_skin": 0.587
+    },
+    "after": {
+      "overall_symmetry_pct": 93.7,
+      "skin_structure_symmetry_pct": 99.69,
+      "mae_rgb_all": 5.32,
+      "rms_rgb_all": 19.89,
+      "pearson_r_all": 0.8589,
+      "mae_rgb_skin": 0.69,
+      "pearson_r_skin": 0.9963
+    },
+    "improvement_pct_points": 19.89,
+    "heightmap_strict_x_symmetry_max_error": 0.0,
+    "gaze_preserved": "side-glancing viewer-left (bunny-right)"
+  },
+  "heightmap_spec": {
+    "dtype": "float32",
+    "shape": [
+      1024,
+      1024
+    ],
+    "value_range": [
+      0.0,
+      1.0
+    ],
+    "recommended_blender_displacement_m": 0.016,
+    "uv_orientation": "u=0 left (bunny-right/-X), u=1 right (bunny-left/+X), v_img=0 top (forehead/+Z), v_img=1 bottom (chin/-Z)"
+  }
+}

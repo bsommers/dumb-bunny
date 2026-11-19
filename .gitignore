@@ -1,0 +1,47 @@
+# ==============================================================================
+# OPERATION DUMB BUNNY — .gitignore
+# ENCOM Grid // OSI Bionic Lab — Derezzing Transient Clutter Only
+# ==============================================================================
+# NOTE: All mission artifacts are INTENTIONALLY TRACKED in this repository:
+#   - Source code & rules:    src/, tracker/, .agents/, GEMINI.md
+#   - Original HEIC photos:   pics/
+#   - Calibrated ref plates:  work/ref_images/, work/textures/
+#   - Telemetry & QA reports: work/tracker_state.json, work/measurements.json,
+#                             work/face_blueprint.json, work/qa_report.json
+#   - Docs & screenshots:     README.md, docs/
+#   - Blender project file:   models/dumb_bunny.blend
+#   - 3D printable exports:   output/ (.stl, .obj, .mtl, face_repaired.png)
+#   - Live viewport renders:  tracker/live_renders/
+# ==============================================================================
+
+# macOS Finder metadata
+.DS_Store
+**/.DS_Store
+._*
+
+# Python bytecode & caches
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Transient Blender Live GUI IPC file queue & atomic write temps
+work/blender_ipc/
+*.tmp
+**/*.tmp
+
+# Blender auto-backup files (keep models/dumb_bunny.blend!)
+models/*.blend1
+models/*.blend2
+*.blend1
+*.blend2
+
+# Editor & OS scratch files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

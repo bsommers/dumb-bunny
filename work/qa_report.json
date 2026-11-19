@@ -1,0 +1,242 @@
+{
+  "timestamp": "2026-11-18T19:25:48",
+  "overall_pass": true,
+  "summary": {
+    "full_stl_pass": true,
+    "face_mask_stl_pass": true,
+    "obj_mtl_pass": true,
+    "blend_file_pass": true,
+    "renders_pass": true,
+    "issue_count": 0
+  },
+  "all_issues": [],
+  "full_stl": {
+    "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/output/dumb_bunny_repaired.stl",
+    "exists": true,
+    "pass": true,
+    "issues": [],
+    "file_size_bytes": 17911584,
+    "file_size_human": "17.08 MB",
+    "header": "",
+    "triangle_count": 358230,
+    "non_finite_coords": 0,
+    "bbox_min_mm": [
+      -69.978,
+      -50.839,
+      0.0
+    ],
+    "bbox_max_mm": [
+      69.589,
+      44.712,
+      184.009
+    ],
+    "bbox_size_mm": {
+      "x": 139.566,
+      "y": 95.551,
+      "z": 184.009
+    },
+    "surface_area_cm2": 605.598,
+    "min_triangle_area_mm2": 3.531045149429701e-05,
+    "degenerate_triangles": 0,
+    "signed_volume_mm3": 784616.32,
+    "signed_volume_cm3": 784.616,
+    "unique_vertex_count": 179117,
+    "collapsed_index_triangles": 0,
+    "topology": {
+      "unique_edges": 537345,
+      "manifold_edges_2": 537345,
+      "boundary_edges_1": 0,
+      "non_manifold_edges_gt2": 0,
+      "inconsistent_orientation_edges": 0,
+      "connected_components": 1,
+      "euler_characteristic": 2,
+      "watertight_manifold": true
+    },
+    "bilateral_symmetry_x": {
+      "x_midpoint_mm": -0.1944,
+      "rms_about_x0_mm": 1.0373,
+      "mean_about_x0_mm": 0.658,
+      "p95_about_x0_mm": 2.43,
+      "max_about_x0_mm": 4.7275,
+      "rms_about_xmid_mm": 1.0639,
+      "rms_pct_of_width": 0.743
+    }
+  },
+  "face_mask_stl": {
+    "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/output/dumb_bunny_face_mask_repaired.stl",
+    "exists": true,
+    "pass": true,
+    "issues": [],
+    "file_size_bytes": 6232284,
+    "file_size_human": "5.94 MB",
+    "header": "",
+    "triangle_count": 124644,
+    "non_finite_coords": 0,
+    "bbox_min_mm": [
+      -29.282,
+      -50.991,
+      116.839
+    ],
+    "bbox_max_mm": [
+      29.282,
+      -24.148,
+      173.305
+    ],
+    "bbox_size_mm": {
+      "x": 58.564,
+      "y": 26.844,
+      "z": 56.466
+    },
+    "surface_area_cm2": 81.048,
+    "min_triangle_area_mm2": 0.00029378160876592836,
+    "degenerate_triangles": 0,
+    "signed_volume_mm3": 10170.44,
+    "signed_volume_cm3": 10.17,
+    "unique_vertex_count": 62324,
+    "collapsed_index_triangles": 0,
+    "topology": {
+      "unique_edges": 186966,
+      "manifold_edges_2": 186966,
+      "boundary_edges_1": 0,
+      "non_manifold_edges_gt2": 0,
+      "inconsistent_orientation_edges": 0,
+      "connected_components": 1,
+      "euler_characteristic": 2,
+      "watertight_manifold": true
+    },
+    "bilateral_symmetry_x": {
+      "x_midpoint_mm": 0.0,
+      "rms_about_x0_mm": 0.0029,
+      "mean_about_x0_mm": 0.0001,
+      "p95_about_x0_mm": 0.0,
+      "max_about_x0_mm": 0.3126,
+      "rms_about_xmid_mm": 0.0029,
+      "rms_pct_of_width": 0.005
+    }
+  },
+  "obj_mtl": {
+    "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/output/dumb_bunny_repaired.obj",
+    "exists": true,
+    "pass": true,
+    "issues": [],
+    "file_size_bytes": 5473962,
+    "file_size_human": "5.22 MB",
+    "counts": {
+      "vertices": 37346,
+      "uv_coords": 36321,
+      "normals": 37346,
+      "faces": 37952,
+      "faces_with_uv": 37952,
+      "objects": [
+        "DumbBunny_Arm_R",
+        "DumbBunny_Arm_L",
+        "DumbBunny_Foot_R",
+        "DumbBunny_Foot_L",
+        "DumbBunny_Ear_R",
+        "DumbBunny_Ear_L",
+        "DumbBunny_Torso",
+        "DumbBunny_Hood",
+        "DumbBunny_Face_Repaired"
+      ]
+    },
+    "bbox_size_raw": [
+      0.14,
+      0.1848,
+      0.0959
+    ],
+    "mtl_files": [
+      {
+        "name": "dumb_bunny_repaired.mtl",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/output/dumb_bunny_repaired.mtl",
+        "exists": true,
+        "file_size_bytes": 627,
+        "file_size_human": "627 B"
+      }
+    ],
+    "defined_materials": [
+      "Mat_OliveCloth",
+      "Mat_PinkVelour",
+      "Mat_VintageRubberFace"
+    ],
+    "used_materials": [
+      "Mat_OliveCloth",
+      "Mat_PinkVelour",
+      "Mat_VintageRubberFace"
+    ],
+    "textures": [
+      {
+        "directive": "map_Kd",
+        "ref": "face_repaired.png",
+        "resolved_path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/output/face_repaired.png",
+        "exists": true,
+        "file_size_bytes": 885883,
+        "file_size_human": "865.1 KB",
+        "valid_image_header": true
+      }
+    ]
+  },
+  "blend_file": {
+    "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/models/dumb_bunny.blend",
+    "exists": true,
+    "pass": true,
+    "issues": [],
+    "file_size_bytes": 5176571,
+    "file_size_human": "4.94 MB",
+    "format": "zstd_compressed_blend"
+  },
+  "renders": {
+    "pass": true,
+    "files": [
+      {
+        "name": "face_damaged_aligned.png",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/work/textures/face_damaged_aligned.png",
+        "exists": true,
+        "file_size_bytes": 1127386,
+        "file_size_human": "1.08 MB"
+      },
+      {
+        "name": "face_repaired.png",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/work/textures/face_repaired.png",
+        "exists": true,
+        "file_size_bytes": 885883,
+        "file_size_human": "865.1 KB"
+      },
+      {
+        "name": "04b_face_repaired.png",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/tracker/live_renders/04b_face_repaired.png",
+        "exists": true,
+        "file_size_bytes": 1215092,
+        "file_size_human": "1.16 MB"
+      },
+      {
+        "name": "05_hero_34.png",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/tracker/live_renders/05_hero_34.png",
+        "exists": true,
+        "file_size_bytes": 919398,
+        "file_size_human": "897.8 KB"
+      },
+      {
+        "name": "06_front.png",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/tracker/live_renders/06_front.png",
+        "exists": true,
+        "file_size_bytes": 911933,
+        "file_size_human": "890.6 KB"
+      },
+      {
+        "name": "07_left_repaired.png",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/tracker/live_renders/07_left_repaired.png",
+        "exists": true,
+        "file_size_bytes": 908650,
+        "file_size_human": "887.4 KB"
+      },
+      {
+        "name": "08_back.png",
+        "path": "/Volumes/mini-m4-2tb/src/3D/dumb-bunny/tracker/live_renders/08_back.png",
+        "exists": true,
+        "file_size_bytes": 860825,
+        "file_size_human": "840.6 KB"
+      }
+    ],
+    "issues": []
+  }
+}

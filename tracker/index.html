@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OPERATION DUMB BUNNY // Bionic 3D Reconstruction Lab</title>
+<style>
+  :root {
+    --bg: #050914;
+    --panel: rgba(11, 18, 34, 0.88);
+    --panel-2: rgba(16, 26, 48, 0.92);
+    --border: rgba(56, 189, 248, 0.24);
+    --border-hi: rgba(56, 189, 248, 0.65);
+    --cyan: #38bdf8;
+    --cyan-glow: rgba(56, 189, 248, 0.35);
+    --pink: #d48ba8;
+    --pink-hi: #f4a8c5;
+    --gold: #fbbf24;
+    --green: #34d399;
+    --red: #fb7185;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+      radial-gradient(circle at 18% 12%, rgba(56, 189, 248, 0.14), transparent 45%),
+      radial-gradient(circle at 82% 85%, rgba(212, 139, 168, 0.14), transparent 45%);
+    background-size: 36px 36px, 36px 36px, 100% 100%, 100% 100%;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 18px 22px 36px;
+  }
+  .shell { max-width: 1520px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+  /* Header */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(11, 20, 40, 0.95), rgba(20, 18, 38, 0.92));
+    border: 1px solid var(--border-hi);
+    border-radius: 16px;
+    padding: 18px 24px;
+    box-shadow: 0 0 36px rgba(56, 189, 248, 0.12), inset 0 1px 0 rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.06), transparent);
+    pointer-events: none;
+  }
+  .kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pulse-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green);
+    animation: pulse 1.5s infinite;
+    display: inline-block;
+  }
+  .pulse-dot.warn { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.85); } }
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    background: linear-gradient(90deg, #ffffff 0%, #bae6fd 55%, #f4a8c5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .motto { color: var(--pink-hi); font-size: 13px; margin-top: 3px; font-weight: 500; letter-spacing: 0.03em; }
+  .hero-right { display: flex; align-items: center; gap: 18px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 12px; border-radius: 999px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    border: 1px solid var(--border); background: rgba(15, 23, 42, 0.8);
+  }
+  .pill.neon { border-color: rgba(56,189,248,0.6); color: #7dd3fc; box-shadow: 0 0 14px rgba(56,189,248,0.18); }
+  .pill.live { border-color: rgba(52,211,153,0.6); color: #6ee7b7; }
+  .pill.launching { border-color: rgba(251,191,36,0.6); color: #fde68a; }
+  .ring-wrap { position: relative; width: 72px; height: 72px; }
+  .ring-wrap svg { transform: rotate(-90deg); width: 72px; height: 72px; }
+  .ring-text {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 15px; font-weight: 800; color: #fff;
+  }
+  .ring-sub { font-size: 8px; color: var(--cyan); letter-spacing: 0.1em; }
+
+  /* Pipeline Bar */
+  .pipeline {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+  }
+  .stage {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 10px; display: flex; flex-direction: column; gap: 5px;
+    transition: all 0.25s ease;
+  }
+  .stage.DONE { border-color: rgba(52,211,153,0.55); background: rgba(16, 42, 36, 0.55); }
+  .stage.RUNNING, .stage.ACTIVE { border-color: var(--cyan); box-shadow: 0 0 18px rgba(56,189,248,0.25); background: rgba(12, 32, 58, 0.78); }
+  .stage-num { font-family: var(--mono); font-size: 10px; color: var(--muted); display: flex; justify-content: space-between; }
+  .stage-label { font-size: 12px; font-weight: 600; color: #f8fafc; line-height: 1.25; }
+  .badge { font-family: var(--mono); font-size: 9px; padding: 2px 6px; border-radius: 999px; font-weight: 700; }
+  .badge.DONE { background: rgba(52,211,153,0.2); color: #6ee7b7; }
+  .badge.RUNNING, .badge.ACTIVE { background: rgba(56,189,248,0.22); color: #7dd3fc; }
+  .badge.PENDING, .badge.QUEUED { background: rgba(148,163,184,0.16); color: #94a3b8; }
+  .badge.ERROR { background: rgba(251,113,133,0.22); color: #fda4af; }
+
+  /* Collapsible Live Gantt Chart */
+  .gantt-card {
+    background: linear-gradient(180deg, rgba(11, 19, 38, 0.94), rgba(8, 14, 28, 0.92));
+    border: 1px solid rgba(56, 189, 248, 0.36);
+    border-radius: 14px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(56, 189, 248, 0.14);
+    overflow: hidden;
+  }
+  .gantt-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, rgba(14, 25, 48, 0.92), rgba(20, 18, 40, 0.85));
+    border-bottom: 1px solid rgba(56, 189, 248, 0.18);
+    flex-wrap: wrap;
+  }
+  .gantt-card.collapsed .gantt-head {
+    border-bottom-color: transparent;
+  }
+  .gantt-head-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .gantt-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--cyan);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .gantt-kpis {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .gantt-kpi {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    color: #e2e8f0;
+  }
+  .gantt-kpi .kpi-label { color: var(--muted); font-weight: 500; }
+  .gantt-kpi.active-lanes { border-color: rgba(56, 189, 248, 0.5); color: #7dd3fc; }
+  .gantt-kpi.active-lanes.all-done { border-color: rgba(52, 211, 153, 0.55); color: #6ee7b7; }
+  .gantt-head-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .gantt-legend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .gantt-leg-item { display: inline-flex; align-items: center; gap: 5px; }
+  .gantt-swatch {
+    width: 10px; height: 6px; border-radius: 3px; display: inline-block;
+  }
+  .gantt-swatch.run { background: linear-gradient(90deg, var(--cyan), var(--pink-hi)); box-shadow: 0 0 6px var(--cyan-glow); }
+  .gantt-swatch.done { background: var(--green); }
+  .gantt-swatch.wait { background: rgba(148,163,184,0.28); border: 1px dashed rgba(148,163,184,0.65); }
+  .gantt-swatch.now { width: 2px; height: 10px; background: var(--pink-hi); box-shadow: 0 0 6px var(--pink-hi); }
+
+  .gantt-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: 8px;
+    background: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: #bae6fd;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+  .gantt-toggle-btn:hover {
+    background: rgba(56, 189, 248, 0.26);
+    border-color: var(--cyan);
+    color: #fff;
+  }
+  .gantt-chevron {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .gantt-card.collapsed .gantt-chevron {
+    transform: rotate(-90deg);
+  }
+
+  .gantt-collapse-wrap {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+    opacity: 1;
+  }
+  .gantt-card.collapsed .gantt-collapse-wrap {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+  .gantt-collapse-inner {
+    overflow: hidden;
+  }
+  .gantt-scroll {
+    overflow-x: auto;
+    padding: 10px 16px 14px;
+  }
+  .gantt-chart {
+    min-width: 780px;
+    position: relative;
+  }
+
+  /* Ruler */
+  .gantt-ruler-row {
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.22);
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+  }
+  .gantt-ruler-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-right: 12px;
+    gap: 2px;
+  }
+  .gantt-ruler-label strong {
+    color: #cbd5e1;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+  }
+  .gantt-ruler-track {
+    position: relative;
+    height: 34px;
+  }
+  .gantt-tick {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+  }
+  .gantt-tick.tick-start { transform: translateX(0); align-items: flex-start; }
+  .gantt-tick-offset {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: #7dd3fc;
+    line-height: 1.1;
+  }
+  .gantt-tick-hms {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: rgba(148, 163, 184, 0.72);
+    line-height: 1.2;
+  }
+  .gantt-tick-mark {
+    width: 1px;
+    height: 5px;
+    background: rgba(56, 189, 248, 0.45);
+    margin-top: 2px;
+  }
+  .gantt-now-badge {
+    position: absolute;
+    top: -1px;
+    transform: translateX(-50%);
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(244,168,197,0.95), rgba(56,189,248,0.95));
+    color: #050914;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    box-shadow: 0 0 12px rgba(244, 168, 197, 0.7), 0 0 16px rgba(56, 189, 248, 0.5);
+    white-space: nowrap;
+    z-index: 8;
+    pointer-events: none;
+  }
+
+  /* Swimlane Container & Continuous Grid/NOW Overlay */
+  .gantt-lanes-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .gantt-grid-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 270px;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .gantt-gridline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(56, 189, 248, 0.075);
+  }
+  .gantt-now-line {
+    position: absolute;
+    top: -6px;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-1px);
+    background: linear-gradient(180deg, #f4a8c5 0%, #38bdf8 60%, rgba(56, 189, 248, 0.25) 100%);
+    box-shadow: 0 0 10px rgba(244, 168, 197, 0.85), 0 0 18px rgba(56, 189, 248, 0.55);
+    z-index: 6;
+  }
+
+  .gantt-group-label {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 4px 3px;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    color: var(--pink-hi);
+    text-transform: uppercase;
+    font-weight: 700;
+    border-top: 1px solid rgba(56, 189, 248, 0.12);
+  }
+  .gantt-group-label.first {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 2px;
+    color: var(--cyan);
+  }
+  .gantt-group-sub {
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+
+  .gantt-row {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    align-items: center;
+    min-height: 40px;
+    border-radius: 8px;
+    background: rgba(12, 20, 38, 0.52);
+    border: 1px solid rgba(56, 189, 248, 0.08);
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .gantt-row:hover {
+    background: rgba(18, 32, 58, 0.78);
+    border-color: rgba(56, 189, 248, 0.32);
+  }
+  .gantt-row.phase-row {
+    min-height: 27px;
+    background: rgba(9, 15, 30, 0.44);
+    border-color: rgba(56, 189, 248, 0.06);
+  }
+  .gantt-row.phase-row:hover {
+    background: rgba(16, 28, 52, 0.72);
+    border-color: rgba(56, 189, 248, 0.28);
+  }
+  .gantt-row-meta {
+    padding: 5px 12px 5px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    border-right: 1px solid rgba(56, 189, 248, 0.1);
+  }
+  .gantt-row.phase-row .gantt-row-meta {
+    padding: 3px 10px;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+  }
+  .gantt-row-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  .gantt-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex: 0 0 7px;
+    background: #64748b;
+  }
+  .gantt-status-dot.RUNNING {
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    animation: pulse 1.4s infinite;
+  }
+  .gantt-status-dot.DONE {
+    background: var(--green);
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.65);
+  }
+  .gantt-status-dot.ERROR {
+    background: var(--red);
+    box-shadow: 0 0 6px rgba(251, 113, 133, 0.65);
+  }
+  .gantt-row-name {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #f1f5f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .gantt-row.phase-row .gantt-row-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+  .gantt-phase-num {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--muted);
+    flex: 0 0 auto;
+  }
+  .gantt-row-sub {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  .gantt-model-pill {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: #7dd3fc;
+    background: rgba(56, 189, 248, 0.11);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    padding: 1px 6px;
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 175px;
+  }
+  .gantt-pct-mini {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--muted);
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  /* Timeline Bars */
+  .gantt-track {
+    position: relative;
+    height: 100%;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+  .gantt-row.phase-row .gantt-track {
+    min-height: 25px;
+  }
+  .gantt-bar {
+    position: absolute;
+    height: 22px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    z-index: 3;
+    min-width: 10px;
+    transition: left 0.4s ease, width 0.4s ease, filter 0.15s ease;
+    overflow: visible;
+  }
+  .gantt-row.phase-row .gantt-bar {
+    height: 15px;
+    border-radius: 4px;
+    font-size: 9px;
+    padding: 0 6px;
+  }
+  .gantt-bar:hover {
+    filter: brightness(1.18);
+    z-index: 5;
+  }
+  .gantt-bar.RUNNING {
+    background: linear-gradient(90deg, rgba(14, 116, 144, 0.72) 0%, rgba(56, 189, 248, 0.58) 65%, rgba(244, 168, 197, 0.65) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.88);
+    color: #f8fafc;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.28);
+    animation: ganttRunPulse 2.2s ease-in-out infinite;
+  }
+  .gantt-bar.RUNNING::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.22) 50%, transparent 80%);
+    background-size: 220% 100%;
+    animation: ganttShimmer 2.4s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes ganttRunPulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.26); }
+    50% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.52), 0 0 8px rgba(244, 168, 197, 0.35); }
+  }
+  @keyframes ganttShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .gantt-bar.DONE {
+    background: linear-gradient(90deg, rgba(6, 95, 70, 0.78), rgba(52, 211, 153, 0.55));
+    border: 1px solid rgba(52, 211, 153, 0.85);
+    color: #ecfdf5;
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.2);
+  }
+  .gantt-bar.QUEUED, .gantt-bar.PENDING {
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(148, 163, 184, 0.13) 0px,
+      rgba(148, 163, 184, 0.13) 5px,
+      rgba(15, 23, 42, 0.35) 5px,
+      rgba(15, 23, 42, 0.35) 10px
+    );
+    border: 1px dashed rgba(148, 163, 184, 0.42);
+    color: #94a3b8;
+  }
+  .gantt-bar.ERROR {
+    background: linear-gradient(90deg, rgba(159, 18, 57, 0.72), rgba(251, 113, 133, 0.55));
+    border: 1px solid rgba(251, 113, 133, 0.88);
+    color: #fff1f2;
+  }
+  .gantt-bar-prog {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    border-radius: 0 0 5px 5px;
+    background: linear-gradient(90deg, #38bdf8, #f4a8c5);
+    pointer-events: none;
+  }
+  .gantt-bar.DONE .gantt-bar-prog {
+    background: #34d399;
+  }
+  .gantt-bar-text {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .gantt-bar-text.outside-right {
+    position: absolute;
+    left: calc(100% + 7px);
+    color: #cbd5e1;
+    overflow: visible;
+  }
+  .gantt-bar-text.outside-left {
+    position: absolute;
+    right: calc(100% + 7px);
+    color: #cbd5e1;
+    overflow: visible;
+  }
+
+  /* Floating Gantt Hover Tooltip */
+  .gantt-tooltip {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.12s ease, transform 0.12s ease;
+    width: 310px;
+    background: rgba(6, 11, 24, 0.96);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(56, 189, 248, 0.62);
+    border-radius: 11px;
+    padding: 11px 13px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65), 0 0 22px rgba(56, 189, 248, 0.18);
+    font-family: var(--sans);
+  }
+  .gantt-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .gtt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.16);
+    padding-bottom: 7px;
+    margin-bottom: 8px;
+  }
+  .gtt-title { font-size: 12.5px; font-weight: 700; color: #f8fafc; line-height: 1.25; }
+  .gtt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 10px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    margin-bottom: 8px;
+  }
+  .gtt-k { color: var(--muted); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .gtt-v { color: #e2e8f0; font-weight: 600; margin-top: 1px; }
+  .gtt-v.cyan { color: #7dd3fc; }
+  .gtt-v.green { color: #6ee7b7; }
+  .gtt-v.pink { color: var(--pink-hi); }
+  .gtt-bar { height: 5px; border-radius: 999px; background: rgba(148,163,184,0.18); overflow: hidden; margin-bottom: 8px; }
+  .gtt-bar-fill { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink-hi)); border-radius: 999px; }
+  .gtt-bar-fill.done { background: var(--green); }
+  .gtt-task {
+    font-size: 11px;
+    color: #cbd5e1;
+    line-height: 1.38;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(56, 189, 248, 0.14);
+    border-radius: 7px;
+    padding: 6px 8px;
+  }
+
+  @media (max-width: 900px) {
+    .gantt-legend { display: none; }
+  }
+
+  /* Main Grid */
+  .grid-2 { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 1180px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .pipeline { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 15px 16px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .card-head {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(56,189,248,0.14); padding-bottom: 9px;
+  }
+  .card-title {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
+    color: var(--cyan); text-transform: uppercase; font-weight: 700;
+  }
+  .card-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+  /* Agent Cards */
+  .agent-card {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 13px; display: flex; flex-direction: column; gap: 9px;
+    transition: border-color 0.25s ease, transform 0.2s ease;
+  }
+  .agent-card.RUNNING { border-color: var(--cyan); box-shadow: 0 0 22px rgba(56,189,248,0.16); }
+  .agent-card.DONE { border-color: rgba(52,211,153,0.55); }
+  .agent-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .agent-name { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.25; }
+  .agent-role { font-size: 11px; color: var(--pink-hi); margin-top: 2px; }
+  .model-tag {
+    font-family: var(--mono); font-size: 10px; color: #7dd3fc;
+    background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3);
+    padding: 2px 7px; border-radius: 6px; width: fit-content;
+  }
+  .bar-track { height: 6px; background: rgba(148,163,184,0.15); border-radius: 999px; overflow: hidden; }
+  .bar-fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--cyan), var(--pink));
+    transition: width 0.45s ease;
+  }
+  .agent-task { font-size: 11.5px; color: #cbd5e1; min-height: 30px; line-height: 1.35; }
+  .agent-log {
+    background: rgba(4, 8, 18, 0.85); border: 1px solid rgba(56,189,248,0.12);
+    border-radius: 8px; padding: 8px; font-family: var(--mono); font-size: 10px;
+    color: #94a3b8; height: 96px; overflow-y: auto; line-height: 1.45;
+  }
+  .agent-log div:last-child { color: #e2e8f0; }
+
+  /* Live Blender Viewport */
+  .viewport-stage {
+    position: relative; background: #030712; border: 1px solid rgba(56,189,248,0.28);
+    border-radius: 12px; overflow: hidden; aspect-ratio: 16/10;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .viewport-stage img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .viewport-overlay {
+    position: absolute; left: 10px; bottom: 10px; right: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(5, 9, 20, 0.78); backdrop-filter: blur(6px);
+    border: 1px solid rgba(56,189,248,0.28); border-radius: 8px; padding: 6px 10px;
+    font-family: var(--mono); font-size: 11px; color: #e2e8f0;
+  }
+  .thumb-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+  .thumb {
+    flex: 0 0 110px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    background: #030712; cursor: pointer; transition: border-color 0.2s;
+  }
+  .thumb:hover, .thumb.active { border-color: var(--cyan); }
+  .thumb img { width: 100%; height: 64px; object-fit: cover; display: block; }
+  .thumb span { display: block; font-size: 9.5px; font-family: var(--mono); padding: 3px 5px; color: #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Interactive Before / After Face Repair Slider */
+  .compare-wrap {
+    position: relative; width: 100%; aspect-ratio: 1 / 1; max-height: 360px;
+    margin: 0 auto; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border-hi); background: #030712; user-select: none;
+  }
+  .compare-wrap img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  }
+  .compare-after { clip-path: inset(0 0 0 50%); }
+  .compare-divider {
+    position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
+    background: var(--cyan); box-shadow: 0 0 12px var(--cyan); pointer-events: none;
+  }
+  .compare-tag {
+    position: absolute; top: 10px; padding: 4px 8px; border-radius: 6px;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    background: rgba(5, 9, 20, 0.82); border: 1px solid var(--border);
+  }
+  .compare-tag.left { left: 10px; color: #fda4af; }
+  .compare-tag.right { right: 10px; color: #6ee7b7; }
+  .compare-slider {
+    width: 100%; accent-color: var(--cyan); margin-top: 6px; cursor: ew-resize;
+  }
+
+  /* Reference 4-view grid */
+  .ref-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .ref-box {
+    background: #030712; border: 1px solid var(--border); border-radius: 9px; overflow: hidden;
+  }
+  .ref-box img { width: 100%; height: 128px; object-fit: cover; display: block; }
+  .ref-box div { font-family: var(--mono); font-size: 10px; text-align: center; padding: 4px; color: #cbd5e1; }
+
+  /* Built-in 3D Mesh Turntable Canvas */
+  #meshCanvas {
+    width: 100%; height: 320px; border-radius: 12px;
+    background: radial-gradient(circle at 50% 42%, #13213e 0%, #050914 78%);
+    border: 1px solid rgba(56,189,248,0.3); cursor: grab; display: block;
+  }
+  #meshCanvas:active { cursor: grabbing; }
+  .mesh-controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    background: rgba(56,189,248,0.14); color: #bae6fd; border: 1px solid rgba(56,189,248,0.45);
+    border-radius: 8px; padding: 6px 11px; font-family: var(--mono); font-size: 11px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn:hover { background: rgba(56,189,248,0.28); color: #fff; }
+  .btn.active { background: var(--cyan); color: #050914; font-weight: 700; }
+
+  /* Outputs & Telemetry */
+  .output-list { display: flex; flex-direction: column; gap: 8px; }
+  .output-item {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    background: rgba(8, 14, 28, 0.9); border: 1px solid var(--border); border-radius: 9px;
+    padding: 9px 12px; font-family: var(--mono); font-size: 11px;
+  }
+  .output-item a { color: var(--cyan); text-decoration: none; font-weight: 700; }
+  .output-item a:hover { text-decoration: underline; }
+  .event-feed {
+    background: rgba(4, 8, 18, 0.85); border: 1px solid rgba(56,189,248,0.14);
+    border-radius: 10px; padding: 10px; font-family: var(--mono); font-size: 11px;
+    max-height: 185px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px;
+  }
+  .ev-row { display: grid; grid-template-columns: 64px 96px 1fr; gap: 8px; }
+  .ev-time { color: var(--muted); }
+  .ev-src { color: var(--cyan); font-weight: 700; }
+  .ev-msg { color: #e2e8f0; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- HERO HEADER -->
+  <div class="hero">
+    <div>
+      <div class="kicker">
+        <span class="pulse-dot" id="liveDot"></span>
+        <span>BIONIC LAB TELEMETRY // 3D RECONSTRUCTION ENGINE</span>
+        <span id="clockTag" style="color:var(--muted)"></span>
+      </div>
+      <h1 id="projectTitle">OPERATION DUMB BUNNY</h1>
+      <div class="motto" id="projectMotto">We can rebuild him. Better. Stronger. Faster.</div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:6px;font-family:var(--mono)" id="currentStageText">Initializing...</div>
+    </div>
+    <div class="hero-right">
+      <div style="display:flex;flex-direction:column;gap:7px;align-items:flex-end;">
+        <div class="pill neon">⚡ SWARM MODEL: GEMINI 4 NEON (HIGH)</div>
+        <div class="pill launching" id="blenderPill">● BLENDER 5.0 LIVE GUI: LAUNCHING</div>
+      </div>
+      <div class="ring-wrap">
+        <svg viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(148,163,184,0.18)" stroke-width="6"/>
+          <circle id="progressArc" cx="36" cy="36" r="30" fill="none" stroke="url(#grad)" stroke-width="6"
+            stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="175"/>
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="100%" stop-color="#f4a8c5"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="ring-text"><span id="pctVal">0%</span><span class="ring-sub">BUILD</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLAPSIBLE LIVE GANTT CHART -->
+  <section class="gantt-card" id="ganttCard" aria-label="Live Mission Gantt Chart">
+    <div class="gantt-head">
+      <div class="gantt-head-left">
+        <div class="gantt-title">
+          <span class="pulse-dot" id="ganttPulseDot"></span>
+          <span>Live Mission Gantt Timeline</span>
+        </div>
+        <div class="gantt-kpis">
+          <div class="gantt-kpi" id="ganttElapsedPill">
+            <span class="kpi-label">ELAPSED</span>
+            <span id="ganttElapsedVal">00:00</span>
+          </div>
+          <div class="gantt-kpi active-lanes" id="ganttLanesPill">
+            <span id="ganttLanesVal">0 / 0 ACTIVE LANES</span>
+          </div>
+          <div class="gantt-kpi" id="ganttPhasesPill">
+            <span class="kpi-label">PHASES</span>
+            <span id="ganttPhasesVal">0/0 DONE</span>
+          </div>
+        </div>
+      </div>
+      <div class="gantt-head-right">
+        <div class="gantt-legend">
+          <span class="gantt-leg-item"><span class="gantt-swatch run"></span>RUNNING</span>
+          <span class="gantt-leg-item"><span class="gantt-swatch done"></span>DONE</span>
+          <span class="gantt-leg-item"><span class="gantt-swatch wait"></span>QUEUED / PENDING</span>
+          <span class="gantt-leg-item"><span class="gantt-swatch now"></span>NOW</span>
+        </div>
+        <button type="button" class="gantt-toggle-btn" id="ganttToggleBtn" aria-expanded="true" aria-controls="ganttCollapseWrap">
+          <span id="ganttToggleLabel">Collapse</span>
+          <svg class="gantt-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="5 8 10 13 15 8"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="gantt-collapse-wrap" id="ganttCollapseWrap">
+      <div class="gantt-collapse-inner">
+        <div class="gantt-scroll">
+          <div class="gantt-chart" id="ganttChart">
+            <div style="font-family:var(--mono);font-size:11px;color:var(--muted);padding:16px 4px;">
+              Synchronizing mission timeline telemetry...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINE STAGES -->
+  <div class="pipeline" id="pipelineBar"></div>
+
+  <!-- PARALLEL NEON SUBAGENT SWIMLANES -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">Parallel Subagent Fleet (4x Gemini 4 Neon High)</div>
+      <div class="card-sub" id="agentSummary">4 Specialists Active</div>
+    </div>
+    <div class="grid-4" id="agentGrid"></div>
+  </div>
+
+  <!-- LIVE BLENDER VIEWPORT + FACE SYMMETRY REPAIR -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Live Blender 5.0 GUI Viewport Feed</div>
+        <div class="card-sub" id="blenderStageSub">Waiting for live capture...</div>
+      </div>
+      <div class="viewport-stage" id="viewportStage">
+        <div style="text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px;padding:20px;">
+          Launching live Blender 5.0 GUI window on macOS desktop...<br/>
+          Real-time viewport captures will stream here automatically at every sculpting milestone.
+        </div>
+      </div>
+      <div class="thumb-strip" id="renderThumbs"></div>
+      <div class="card-head" style="margin-top:4px;">
+        <div class="card-title">Source Reference Plates (4-View Ingest)</div>
+        <div class="card-sub">front · back · left_side · right_side</div>
+      </div>
+      <div class="ref-grid">
+        <div class="ref-box"><img src="/work/ref_images/front_preview.png" alt="Front"/><div>FRONT</div></div>
+        <div class="ref-box"><img src="/work/ref_images/back.png" alt="Back"/><div>BACK</div></div>
+        <div class="ref-box"><img src="/work/ref_images/left_side.png" alt="Left"/><div>LEFT (CRACKED)</div></div>
+        <div class="ref-box"><img src="/work/ref_images/right_side.png" alt="Right"/><div>RIGHT (INTACT)</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Bionic Facial Crack Repair (Right → Left Symmetry)</div>
+        <div class="card-sub" id="symScoreSub">Analyzing crack...</div>
+      </div>
+      <div class="compare-wrap" id="compareBox">
+        <img id="imgBefore" src="/work/ref_images/front_face_closeup.png" alt="Before Crack"/>
+        <img id="imgAfter" class="compare-after" src="/work/ref_images/front_face_closeup.png" alt="After Symmetry Repair"/>
+        <div class="compare-divider" id="compareDivider"></div>
+        <div class="compare-tag left">ORIGINAL (LEFT-SIDE CRACK)</div>
+        <div class="compare-tag right">REPAIRED (R→L SYMMETRY)</div>
+      </div>
+      <input type="range" min="0" max="100" value="50" class="compare-slider" id="compareSlider" />
+      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--muted);">
+        <span>◀ Drag slider to inspect crack removal</span>
+        <span id="repairStatusNote">Awaiting repaired texture...</span>
+      </div>
+
+      <!-- INTERACTIVE 3D PREVIEW -->
+      <div class="card-head" style="margin-top:6px;">
+        <div class="card-title">Interactive 3D Mesh Inspector (OBJ / STL)</div>
+        <div class="card-sub" id="meshStatsSub">Waiting for export...</div>
+      </div>
+      <canvas id="meshCanvas" width="640" height="360"></canvas>
+      <div class="mesh-controls">
+        <button class="btn active" id="btnAutoSpin">Auto-Spin: ON</button>
+        <button class="btn" id="btnLoadFull">Load Full Bunny STL</button>
+        <button class="btn" id="btnLoadFace">Load Repaired Face STL</button>
+        <button class="btn" id="btnWire">Shaded + Wire</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTPUT ARTIFACTS + MISSION LOG -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Exported 3D Prototype Deliverables</div>
+        <div class="card-sub">.blend · .obj · .mtl · watertight .stl</div>
+      </div>
+      <div class="output-list" id="outputList">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted);">Outputs will populate automatically upon export & QA verification...</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Live Mission Telemetry Feed</div>
+        <div class="card-sub">Polling 1Hz</div>
+      </div>
+      <div class="event-feed" id="eventFeed"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FLOATING GANTT TOOLTIP -->
+<div class="gantt-tooltip" id="ganttTooltip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+// --- Collapsible Live Mission Gantt Chart ---
+const GANTT_COLLAPSE_KEY = 'dumb_bunny_gantt_collapsed';
+const GANTT_MEM_KEY = 'dumb_bunny_gantt_mem_v1';
+const ganttCard = document.getElementById('ganttCard');
+const ganttToggleBtn = document.getElementById('ganttToggleBtn');
+const ganttToggleLabel = document.getElementById('ganttToggleLabel');
+const ganttChartEl = document.getElementById('ganttChart');
+const ganttTooltipEl = document.getElementById('ganttTooltip');
+
+let lastState = null;
+let ganttRowMap = {};
+let ganttHoverId = null;
+let ganttLastMouse = { x: 0, y: 0 };
+
+function escHtml(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function readStorage(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v === null ? fallback : v;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function writeStorage(key, val) {
+  try {
+    localStorage.setItem(key, val);
+  } catch (e) {}
+}
+
+function applyGanttCollapsed(collapsed) {
+  ganttCard.classList.toggle('collapsed', collapsed);
+  ganttToggleBtn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  ganttToggleLabel.textContent = collapsed ? 'Expand' : 'Collapse';
+  if (collapsed) hideGanttTooltip();
+  writeStorage(GANTT_COLLAPSE_KEY, collapsed ? 'true' : 'false');
+}
+
+applyGanttCollapsed(readStorage(GANTT_COLLAPSE_KEY, 'false') === 'true');
+ganttToggleBtn.addEventListener('click', () => {
+  applyGanttCollapsed(!ganttCard.classList.contains('collapsed'));
+});
+
+function loadGanttMem(startedAtKey) {
+  try {
+    const raw = readStorage(GANTT_MEM_KEY, '');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.startedAt === startedAtKey && parsed.rows) return parsed;
+    }
+  } catch (e) {}
+  return { startedAt: startedAtKey || 'default', rows: {} };
+}
+
+function saveGanttMem(mem) {
+  try {
+    writeStorage(GANTT_MEM_KEY, JSON.stringify(mem));
+  } catch (e) {}
+}
+
+let ganttMem = { startedAt: '', rows: {} };
+
+function normalizeGanttStatus(raw) {
+  const s = String(raw || 'PENDING').toUpperCase();
+  if (s === 'RUNNING' || s === 'ACTIVE' || s === 'IN_PROGRESS') return 'RUNNING';
+  if (s === 'DONE' || s === 'COMPLETE' || s === 'COMPLETED') return 'DONE';
+  if (s === 'ERROR' || s === 'FAILED') return 'ERROR';
+  if (s === 'QUEUED') return 'QUEUED';
+  return 'PENDING';
+}
+
+function parseStartedAtMeta(startedAtStr) {
+  if (typeof startedAtStr === 'string') {
+    const m = /^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2})(.*)$/.exec(startedAtStr.trim());
+    const parsed = Date.parse(startedAtStr);
+    if (m && !Number.isNaN(parsed)) {
+      return { baseMs: parsed, datePart: m[1], tzPart: m[3] || '' };
+    }
+    if (!Number.isNaN(parsed)) {
+      return { baseMs: parsed, datePart: null, tzPart: '' };
+    }
+  }
+  return { baseMs: Date.now() - 60000, datePart: null, tzPart: '' };
+}
+
+function parseHmsToMs(hms, meta) {
+  const m = /^(\d{1,2}):(\d{2}):(\d{2})$/.exec(String(hms || '').trim());
+  if (!m) return null;
+  const hh = String(m[1]).padStart(2, '0');
+  const mm = m[2];
+  const ss = m[3];
+  let ms = NaN;
+  if (meta && meta.datePart) {
+    ms = Date.parse(`${meta.datePart}T${hh}:${mm}:${ss}${meta.tzPart}`);
+  }
+  if (Number.isNaN(ms)) {
+    const base = new Date(meta ? meta.baseMs : Date.now());
+    ms = new Date(base.getFullYear(), base.getMonth(), base.getDate(), +m[1], +m[2], +m[3], 0).getTime();
+  }
+  if (meta && !Number.isNaN(meta.baseMs)) {
+    if (ms < meta.baseMs - 6 * 3600 * 1000) ms += 24 * 3600 * 1000;
+    else if (ms > meta.baseMs + 18 * 3600 * 1000) ms -= 24 * 3600 * 1000;
+  }
+  return Number.isNaN(ms) ? null : ms;
+}
+
+function formatHmsFromMs(ms) {
+  const d = new Date(ms);
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  const ss = String(d.getSeconds()).padStart(2, '0');
+  return `${hh}:${mm}:${ss}`;
+}
+
+function formatDuration(ms) {
+  const totalSec = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  if (h > 0) return `${h}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+  if (m > 0) return `${m}m ${String(s).padStart(2, '0')}s`;
+  return `${s}s`;
+}
+
+function formatClockElapsed(ms) {
+  const totalSec = Math.max(0, Math.floor(ms / 1000));
+  const h = Math.floor(totalSec / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+  if (h > 0) return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function formatRulerOffset(sec) {
+  if (sec <= 0) return '+0m';
+  if (sec % 60 === 0) return `+${sec / 60}m`;
+  if (sec < 60) return `+${sec}s`;
+  return `+${Math.floor(sec / 60)}m${sec % 60}s`;
+}
+
+function pickTickIntervalSec(spanSec) {
+  const candidates = [15, 30, 60, 120, 180, 300, 600, 900, 1200, 1800, 3600];
+  for (const step of candidates) {
+    if (spanSec / step <= 8) return step;
+  }
+  return 3600;
+}
+
+function extractAgentTimestamps(agent, events, meta) {
+  const out = [];
+  const logRe = /\[(\d{1,2}:\d{2}:\d{2})\]/;
+  for (const line of (agent.logs || [])) {
+    const m = logRe.exec(String(line));
+    if (m) {
+      const ms = parseHmsToMs(m[1], meta);
+      if (ms !== null) out.push(ms);
+    }
+  }
+  const aid = String(agent.id || '').toUpperCase();
+  for (const ev of (events || [])) {
+    if (String(ev.source || '').toUpperCase() === aid && ev.time) {
+      const ms = parseHmsToMs(ev.time, meta);
+      if (ms !== null) out.push(ms);
+    }
+  }
+  out.sort((a, b) => a - b);
+  return out;
+}
+
+const STAGE_LINK_HINTS = {
+  ingest:   { agents: [], keywords: ['ingest', 'heic', 'converted', 'photo'] },
+  analyze:  { agents: ['agent-1'], keywords: ['agent 1', 'analyz', 'photogram', 'silhouette', 'calibrat', 'measure'] },
+  repair:   { agents: ['agent-2'], keywords: ['agent 2', 'repair', 'symmetry', 'crack', 'face'] },
+  live_rig: { agents: ['agent-3'], keywords: ['live_rig', '4-view rig', 'blender 5', 'viewport', 'rig'] },
+  sculpt:   { agents: ['agent-3'], keywords: ['sculpt', 'hood', 'ear', 'body', 'mesh'] },
+  export:   { agents: ['agent-3'], keywords: ['export', '.stl', '.obj', 'watertight stl'] },
+  qa:       { agents: ['agent-4'], keywords: ['agent 4', 'qa', 'verif', 'printability', 'audit', 'watertight'] }
+};
+
+function renderGantt(st) {
+  if (!st) return;
+  const startedKey = st.started_at || 'default';
+  if (ganttMem.startedAt !== startedKey) {
+    ganttMem = loadGanttMem(startedKey);
+  }
+  const meta = parseStartedAtMeta(st.started_at);
+  const baseMs = meta.baseMs;
+  const events = st.events || [];
+  const agents = st.agents || [];
+  const stages = st.pipeline_stages || [];
+
+  // Find latest observed timestamp to guard against minor clock skew
+  let maxEventMs = baseMs;
+  for (const ev of events) {
+    const ms = parseHmsToMs(ev.time, meta);
+    if (ms !== null && ms > maxEventMs) maxEventMs = ms;
+  }
+  const agentTsMap = {};
+  for (const a of agents) {
+    const ts = extractAgentTimestamps(a, events, meta);
+    agentTsMap[a.id] = ts;
+    if (ts.length && ts[ts.length - 1] > maxEventMs) maxEventMs = ts[ts.length - 1];
+  }
+
+  const nowMs = Math.max(Date.now(), maxEventMs, baseMs + 1000);
+  const elapsedMs = Math.max(1000, nowMs - baseMs);
+  // Keep NOW cursor around ~92% of the track so upcoming/pending markers fit cleanly to the right
+  const viewSpanMs = Math.max(60000, elapsedMs / 0.92);
+  const viewEndMs = baseMs + viewSpanMs;
+  const toPct = ms => Math.max(0, Math.min(100, ((ms - baseMs) / viewSpanMs) * 100));
+  const nowPct = toPct(nowMs);
+
+  // Compute agent rows
+  let memDirty = false;
+  let activeAgentCount = 0;
+  let doneAgentCount = 0;
+  const agentRows = agents.map((a, idx) => {
+    const key = `agent:${a.id || idx}`;
+    const normStatus = normalizeGanttStatus(a.status);
+    if (normStatus === 'RUNNING') activeAgentCount++;
+    if (normStatus === 'DONE') doneAgentCount++;
+
+    const tsList = agentTsMap[a.id] || [];
+    const firstTs = tsList.length ? tsList[0] : null;
+    const lastTs = tsList.length ? tsList[tsList.length - 1] : null;
+    const mem = ganttMem.rows[key] || {};
+
+    if (firstTs !== null && (!mem.firstStartMs || firstTs < mem.firstStartMs)) {
+      mem.firstStartMs = firstTs;
+      memDirty = true;
+    }
+    if (normStatus === 'RUNNING' && !mem.firstStartMs) {
+      mem.firstStartMs = firstTs || nowMs;
+      memDirty = true;
+    }
+    if (normStatus === 'DONE') {
+      const doneCandidate = lastTs || mem.doneAtMs || nowMs;
+      if (!mem.doneAtMs || (lastTs && lastTs > mem.doneAtMs)) {
+        mem.doneAtMs = doneCandidate;
+        memDirty = true;
+      }
+    }
+    if (mem.lastStatus !== normStatus) {
+      mem.lastStatus = normStatus;
+      memDirty = true;
+    }
+    ganttMem.rows[key] = mem;
+
+    let startMs = null;
+    let endMs = null;
+    let started = true;
+    if (normStatus === 'RUNNING') {
+      startMs = Math.max(baseMs, mem.firstStartMs || firstTs || baseMs);
+      endMs = nowMs;
+    } else if (normStatus === 'DONE') {
+      startMs = Math.max(baseMs, mem.firstStartMs || firstTs || baseMs);
+      endMs = Math.max(startMs + 3000, mem.doneAtMs || lastTs || nowMs);
+    } else if (normStatus === 'ERROR') {
+      startMs = Math.max(baseMs, mem.firstStartMs || firstTs || baseMs);
+      endMs = Math.max(startMs + 3000, lastTs || nowMs);
+    } else {
+      // QUEUED / PENDING
+      if (firstTs !== null || mem.firstStartMs) {
+        startMs = Math.max(baseMs, mem.firstStartMs || firstTs);
+        endMs = nowMs;
+      } else {
+        started = false;
+        startMs = nowMs;
+        endMs = Math.min(viewEndMs, nowMs + viewSpanMs * 0.068);
+      }
+    }
+
+    const durMs = started ? Math.max(0, endMs - startMs) : 0;
+    const prog = normStatus === 'DONE' ? 100 : Math.max(0, Math.min(100, Number(a.progress) || 0));
+    const lastLog = (a.logs && a.logs.length) ? a.logs[a.logs.length - 1] : '';
+
+    return {
+      id: key,
+      kind: 'agent',
+      name: a.name || a.id || `Agent ${idx + 1}`,
+      role: a.role || '',
+      model: a.model || 'Gemini 4 Neon',
+      rawStatus: String(a.status || normStatus).toUpperCase(),
+      status: normStatus,
+      progress: prog,
+      task: a.current_task || lastLog || 'Standing by...',
+      startMs,
+      endMs,
+      started,
+      durMs
+    };
+  });
+
+  // Earliest agent start (helps lock stage 0 "ingest" accurately)
+  const earliestAgentStartMs = agentRows
+    .filter(r => r.started && r.startMs > baseMs)
+    .reduce((acc, r) => Math.min(acc, r.startMs), Infinity);
+
+  const pipelineEvents = events
+    .map(ev => ({ ...ev, ms: parseHmsToMs(ev.time, meta), msgLower: String(ev.msg || '').toLowerCase() }))
+    .filter(ev => ev.ms !== null);
+
+  // Compute pipeline phase rows
+  let donePhaseCount = 0;
+  let activePhaseCount = 0;
+  let prevPhaseEndMs = baseMs;
+  const phaseRows = stages.map((s, idx) => {
+    const sid = String(s.id || `stage-${idx}`);
+    const key = `phase:${sid}`;
+    const normStatus = normalizeGanttStatus(s.status);
+    if (normStatus === 'DONE') donePhaseCount++;
+    if (normStatus === 'RUNNING') activePhaseCount++;
+
+    const mem = ganttMem.rows[key] || {};
+    const hint = STAGE_LINK_HINTS[sid] || {
+      agents: [],
+      keywords: [sid.toLowerCase(), ...String(s.label || '').toLowerCase().split(/\s+/).filter(w => w.length > 3)]
+    };
+
+    const matchedTs = [];
+    for (const ev of pipelineEvents) {
+      if (hint.keywords.some(kw => ev.msgLower.includes(kw))) {
+        matchedTs.push(ev.ms);
+      }
+    }
+    // Also pull from linked agents (except ingest which precedes agents)
+    const linkedAgentObjs = agentRows.filter(ar => hint.agents.includes(ar.id.replace('agent:', '')));
+    for (const la of linkedAgentObjs) {
+      if (la.started && la.startMs) matchedTs.push(la.startMs);
+      if (la.status === 'DONE' && la.endMs) matchedTs.push(la.endMs);
+    }
+    matchedTs.sort((a, b) => a - b);
+
+    if (idx === 0) {
+      if (!mem.firstStartMs) {
+        mem.firstStartMs = baseMs;
+        memDirty = true;
+      }
+    } else if (normStatus === 'RUNNING' || normStatus === 'DONE') {
+      const candidateStart = matchedTs.length ? matchedTs[0] : (mem.firstStartMs || Math.min(nowMs, prevPhaseEndMs));
+      if (!mem.firstStartMs || (matchedTs.length && matchedTs[0] < mem.firstStartMs)) {
+        mem.firstStartMs = Math.max(baseMs, candidateStart);
+        memDirty = true;
+      }
+    }
+
+    if (normStatus === 'DONE') {
+      let candidateEnd = mem.doneAtMs;
+      if (!candidateEnd) {
+        if (idx === 0) {
+          const nextPipeEv = pipelineEvents.find(ev => ev.ms > baseMs && String(ev.source || '').toUpperCase() === 'PIPELINE');
+          candidateEnd = (nextPipeEv && nextPipeEv.ms)
+            || (Number.isFinite(earliestAgentStartMs) ? earliestAgentStartMs : null)
+            || Math.min(nowMs, baseMs + Math.max(15000, elapsedMs * 0.15));
+        } else if (linkedAgentObjs.length && linkedAgentObjs.every(la => la.status === 'DONE')) {
+          candidateEnd = Math.max(...linkedAgentObjs.map(la => la.endMs));
+        } else if (matchedTs.length > 1) {
+          candidateEnd = matchedTs[matchedTs.length - 1];
+        } else {
+          candidateEnd = nowMs;
+        }
+        mem.doneAtMs = candidateEnd;
+        memDirty = true;
+      }
+    }
+    if (mem.lastStatus !== normStatus) {
+      mem.lastStatus = normStatus;
+      memDirty = true;
+    }
+    ganttMem.rows[key] = mem;
+
+    let startMs = null;
+    let endMs = null;
+    let started = true;
+    if (normStatus === 'DONE') {
+      startMs = Math.max(baseMs, mem.firstStartMs || (idx === 0 ? baseMs : prevPhaseEndMs));
+      endMs = Math.max(startMs + 3000, mem.doneAtMs || nowMs);
+      prevPhaseEndMs = endMs;
+    } else if (normStatus === 'RUNNING') {
+      startMs = Math.max(baseMs, mem.firstStartMs || matchedTs[0] || prevPhaseEndMs);
+      endMs = nowMs;
+    } else {
+      started = false;
+      startMs = nowMs;
+      endMs = Math.min(viewEndMs, nowMs + viewSpanMs * 0.068);
+    }
+
+    const durMs = started ? Math.max(0, endMs - startMs) : 0;
+    let prog = normStatus === 'DONE' ? 100 : 0;
+    if (normStatus === 'RUNNING') {
+      if (linkedAgentObjs.length) {
+        prog = Math.round(linkedAgentObjs.reduce((sVal, a) => sVal + a.progress, 0) / linkedAgentObjs.length);
+      } else {
+        prog = Math.max(10, Math.min(95, Number(st.overall_progress) || 25));
+      }
+    }
+
+    const taskDesc = normStatus === 'DONE'
+      ? `Phase 0${idx + 1} completed cleanly.`
+      : normStatus === 'RUNNING'
+        ? (linkedAgentObjs[0] ? linkedAgentObjs[0].task : (st.current_stage || 'Active pipeline phase'))
+        : `Queued after preceding pipeline dependencies.`;
+
+    return {
+      id: key,
+      kind: 'phase',
+      index: idx + 1,
+      name: s.label || sid,
+      model: linkedAgentObjs.length ? linkedAgentObjs.map(a => a.model).join(', ') : `Pipeline Stage 0${idx + 1}`,
+      rawStatus: String(s.status || normStatus).toUpperCase(),
+      status: normStatus,
+      progress: prog,
+      task: taskDesc,
+      startMs,
+      endMs,
+      started,
+      durMs
+    };
+  });
+
+  if (memDirty) saveGanttMem(ganttMem);
+
+  // Update header KPIs
+  document.getElementById('ganttElapsedVal').textContent = formatClockElapsed(elapsedMs);
+  const lanesPill = document.getElementById('ganttLanesPill');
+  const lanesVal = document.getElementById('ganttLanesVal');
+  if (agents.length > 0 && doneAgentCount === agents.length && activeAgentCount === 0) {
+    lanesVal.textContent = `${doneAgentCount}/${agents.length} LANES COMPLETE ✓`;
+    lanesPill.classList.add('all-done');
+  } else {
+    lanesVal.textContent = `${activeAgentCount} / ${agents.length} ACTIVE PARALLEL LANES`;
+    lanesPill.classList.remove('all-done');
+  }
+  document.getElementById('ganttPhasesVal').textContent = `${donePhaseCount}/${stages.length} DONE`;
+  const gPulse = document.getElementById('ganttPulseDot');
+  gPulse.className = 'pulse-dot' + (activeAgentCount === 0 && activePhaseCount === 0 && doneAgentCount < agents.length ? ' warn' : '');
+
+  // Build ruler ticks
+  const viewSpanSec = viewSpanMs / 1000;
+  const tickStepSec = pickTickIntervalSec(viewSpanSec);
+  const ticks = [];
+  for (let sec = 0; sec <= viewSpanSec; sec += tickStepSec) {
+    const pct = (sec / viewSpanSec) * 100;
+    if (pct > 97) break;
+    ticks.push({
+      sec,
+      pct,
+      offset: formatRulerOffset(sec),
+      hms: formatHmsFromMs(baseMs + sec * 1000)
+    });
+  }
+
+  // Register row map for hover tooltip
+  ganttRowMap = {};
+  for (const r of [...agentRows, ...phaseRows]) {
+    ganttRowMap[r.id] = { ...r, baseMs };
+  }
+
+  function renderBarHtml(r) {
+    const leftPct = toPct(r.startMs);
+    const rightPct = toPct(r.endMs);
+    const widthPct = Math.max(0.8, rightPct - leftPct);
+    let labelText = '';
+    if (r.status === 'DONE') {
+      labelText = `✓ ${formatDuration(r.durMs)}`;
+    } else if (r.status === 'RUNNING') {
+      labelText = r.kind === 'agent'
+        ? `${r.progress}% · ${formatDuration(r.durMs)}`
+        : formatDuration(r.durMs);
+    } else if (r.status === 'ERROR') {
+      labelText = `ERR · ${formatDuration(r.durMs)}`;
+    } else {
+      labelText = r.started
+        ? `${r.rawStatus} · ${r.progress}%`
+        : r.rawStatus;
+    }
+
+    let textClass = 'gantt-bar-text';
+    if (widthPct < 11) {
+      textClass += (leftPct + widthPct > 84) ? ' outside-left' : ' outside-right';
+    }
+    const showProgLine = r.kind === 'agent' && (r.status === 'RUNNING' || r.status === 'DONE' || (r.started && r.progress > 0));
+    const progHtml = showProgLine
+      ? `<span class="gantt-bar-prog" style="width:${r.progress}%"></span>`
+      : '';
+
+    return `
+      <div class="gantt-bar ${r.status}" data-gantt-id="${escHtml(r.id)}" style="left:${leftPct.toFixed(2)}%;width:${widthPct.toFixed(2)}%;">
+        ${progHtml}
+        <span class="${textClass}">${escHtml(labelText)}</span>
+      </div>
+    `;
+  }
+
+  const rulerTicksHtml = ticks.map((t, i) => `
+    <div class="gantt-tick ${i === 0 ? 'tick-start' : ''}" style="left:${t.pct.toFixed(2)}%;">
+      <span class="gantt-tick-offset">${t.offset}</span>
+      <span class="gantt-tick-hms">${t.hms}</span>
+      <span class="gantt-tick-mark"></span>
+    </div>
+  `).join('');
+
+  const gridLinesHtml = ticks.map(t => `<div class="gantt-gridline" style="left:${t.pct.toFixed(2)}%;"></div>`).join('');
+
+  const agentRowsHtml = agentRows.map(r => `
+    <div class="gantt-row agent-row" data-gantt-id="${escHtml(r.id)}">
+      <div class="gantt-row-meta">
+        <div class="gantt-row-top">
+          <span class="gantt-status-dot ${r.status}"></span>
+          <span class="gantt-row-name" title="${escHtml(r.name)}">${escHtml(r.name)}</span>
+        </div>
+        <div class="gantt-row-sub">
+          <span class="gantt-model-pill" title="${escHtml(r.model)}">⚡ ${escHtml(r.model)}</span>
+          <span class="gantt-pct-mini">${r.progress}%</span>
+        </div>
+      </div>
+      <div class="gantt-track">
+        ${renderBarHtml(r)}
+      </div>
+    </div>
+  `).join('');
+
+  const phaseRowsHtml = phaseRows.map(r => `
+    <div class="gantt-row phase-row" data-gantt-id="${escHtml(r.id)}">
+      <div class="gantt-row-meta">
+        <span class="gantt-phase-num">0${r.index}</span>
+        <span class="gantt-status-dot ${r.status}"></span>
+        <span class="gantt-row-name" title="${escHtml(r.name)}">${escHtml(r.name)}</span>
+      </div>
+      <div class="gantt-track">
+        ${renderBarHtml(r)}
+      </div>
+    </div>
+  `).join('');
+
+  ganttChartEl.innerHTML = `
+    <div class="gantt-ruler-row">
+      <div class="gantt-ruler-label">
+        <strong>SWIMLANE / MODEL</strong>
+        <span>START ${formatHmsFromMs(baseMs)} · T+${formatDuration(elapsedMs)}</span>
+      </div>
+      <div class="gantt-ruler-track">
+        ${rulerTicksHtml}
+        <div class="gantt-now-badge" style="left:${nowPct.toFixed(2)}%;">NOW · ${formatHmsFromMs(nowMs)}</div>
+      </div>
+    </div>
+    <div class="gantt-lanes-wrap">
+      <div class="gantt-grid-overlay">
+        ${gridLinesHtml}
+        <div class="gantt-now-line" style="left:${nowPct.toFixed(2)}%;"></div>
+      </div>
+      <div class="gantt-group-label first">
+        <span>Parallel Subagent Swimlanes (${agents.length})</span>
+        <span class="gantt-group-sub">${activeAgentCount} running · ${doneAgentCount} done</span>
+      </div>
+      ${agentRowsHtml}
+      <div class="gantt-group-label">
+        <span>Pipeline Phases (${stages.length})</span>
+        <span class="gantt-group-sub">${donePhaseCount}/${stages.length} complete</span>
+      </div>
+      ${phaseRowsHtml}
+    </div>
+  `;
+
+  if (ganttHoverId && ganttRowMap[ganttHoverId]) {
+    showGanttTooltip(ganttRowMap[ganttHoverId], ganttLastMouse.x, ganttLastMouse.y);
+  }
+}
+
+function showGanttTooltip(row, clientX, clientY) {
+  const startStr = row.started
+    ? `${formatHmsFromMs(row.startMs)} (+${formatDuration(Math.max(0, row.startMs - row.baseMs))})`
+    : 'Awaiting start';
+  const durStr = row.started
+    ? `${formatDuration(row.durMs)}${row.status === 'RUNNING' ? ' (LIVE)' : ''}`
+    : '—';
+  const durCls = row.status === 'DONE' ? 'green' : (row.status === 'RUNNING' ? 'cyan' : '');
+
+  ganttTooltipEl.innerHTML = `
+    <div class="gtt-head">
+      <div class="gtt-title">${escHtml(row.name)}</div>
+      <span class="badge ${row.status}">${escHtml(row.rawStatus)}</span>
+    </div>
+    <div class="gtt-grid">
+      <div><div class="gtt-k">Start Time</div><div class="gtt-v">${escHtml(startStr)}</div></div>
+      <div><div class="gtt-k">Duration</div><div class="gtt-v ${durCls}">${escHtml(durStr)}</div></div>
+      <div><div class="gtt-k">${row.kind === 'agent' ? 'Model' : 'Phase'}</div><div class="gtt-v pink">${escHtml(row.model)}</div></div>
+      <div><div class="gtt-k">Progress</div><div class="gtt-v cyan">${row.progress}%</div></div>
+    </div>
+    <div class="gtt-bar"><div class="gtt-bar-fill ${row.status === 'DONE' ? 'done' : ''}" style="width:${row.progress}%"></div></div>
+    <div class="gtt-task">${escHtml(row.task)}</div>
+  `;
+  ganttTooltipEl.classList.add('visible');
+  ganttTooltipEl.setAttribute('aria-hidden', 'false');
+
+  const pad = 14;
+  const rect = ganttTooltipEl.getBoundingClientRect();
+  let x = clientX + pad;
+  let y = clientY + pad;
+  if (x + rect.width > window.innerWidth - 10) x = Math.max(10, clientX - rect.width - pad);
+  if (y + rect.height > window.innerHeight - 10) y = Math.max(10, clientY - rect.height - pad);
+  ganttTooltipEl.style.left = `${x}px`;
+  ganttTooltipEl.style.top = `${y}px`;
+}
+
+function hideGanttTooltip() {
+  ganttHoverId = null;
+  ganttTooltipEl.classList.remove('visible');
+  ganttTooltipEl.setAttribute('aria-hidden', 'true');
+}
+
+ganttChartEl.addEventListener('mousemove', e => {
+  const target = e.target.closest('[data-gantt-id]');
+  if (!target) {
+    if (ganttHoverId) hideGanttTooltip();
+    return;
+  }
+  const id = target.getAttribute('data-gantt-id');
+  const row = ganttRowMap[id];
+  if (!row) {
+    hideGanttTooltip();
+    return;
+  }
+  ganttHoverId = id;
+  ganttLastMouse = { x: e.clientX, y: e.clientY };
+  showGanttTooltip(row, e.clientX, e.clientY);
+});
+
+ganttChartEl.addEventListener('mouseleave', hideGanttTooltip);
+
+setInterval(() => {
+  if (lastState && !ganttCard.classList.contains('collapsed')) {
+    renderGantt(lastState);
+  } else if (lastState) {
+    // Still keep header elapsed time ticking smoothly while collapsed
+    const meta = parseStartedAtMeta(lastState.started_at);
+    const elapsedMs = Math.max(1000, Date.now() - meta.baseMs);
+    document.getElementById('ganttElapsedVal').textContent = formatClockElapsed(elapsedMs);
+  }
+}, 1000);
+
+// --- Before/After Slider ---
+const slider = document.getElementById('compareSlider');
+const imgAfter = document.getElementById('imgAfter');
+const divider = document.getElementById('compareDivider');
+function updateSlider(val) {
+  imgAfter.style.clipPath = `inset(0 0 0 ${val}%)`;
+  divider.style.left = `${val}%`;
+}
+slider.addEventListener('input', e => updateSlider(e.target.value));
+updateSlider(50);
+
+// --- Lightweight Zero-Dependency Interactive Binary/ASCII STL 3D Viewer ---
+const canvas = document.getElementById('meshCanvas');
+const ctx = canvas.getContext('2d');
+let meshTris = [];
+let rotY = 0.45, rotX = -0.22, zoom = 1.0, autoSpin = true, showWire = false;
+let dragging = false, lastX = 0, lastY = 0, loadedMeshUrl = '';
+
+canvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; autoSpin = false; document.getElementById('btnAutoSpin').classList.remove('active'); document.getElementById('btnAutoSpin').textContent = 'Auto-Spin: OFF'; });
+window.addEventListener('mouseup', () => dragging = false);
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  rotY += (e.clientX - lastX) * 0.01;
+  rotX += (e.clientY - lastY) * 0.01;
+  rotX = Math.max(-1.4, Math.min(1.4, rotX));
+  lastX = e.clientX; lastY = e.clientY;
+});
+canvas.addEventListener('wheel', e => { e.preventDefault(); zoom = Math.max(0.45, Math.min(2.6, zoom * (e.deltaY > 0 ? 0.92 : 1.08))); }, {passive:false});
+
+document.getElementById('btnAutoSpin').onclick = () => {
+  autoSpin = !autoSpin;
+  const b = document.getElementById('btnAutoSpin');
+  b.classList.toggle('active', autoSpin);
+  b.textContent = 'Auto-Spin: ' + (autoSpin ? 'ON' : 'OFF');
+};
+document.getElementById('btnWire').onclick = () => {
+  showWire = !showWire;
+  document.getElementById('btnWire').classList.toggle('active', showWire);
+};
+document.getElementById('btnLoadFull').onclick = () => loadSTL('/output/dumb_bunny_repaired.stl', true);
+document.getElementById('btnLoadFace').onclick = () => loadSTL('/output/dumb_bunny_face_mask_repaired.stl', true);
+
+async function loadSTL(url, force=false) {
+  if (!force && loadedMeshUrl === url && meshTris.length > 0) return;
+  try {
+    const resp = await fetch(url + '?t=' + Date.now());
+    if (!resp.ok) return;
+    const buf = await resp.arrayBuffer();
+    const dv = new DataView(buf);
+    const triCount = dv.getUint32(80, true);
+    if (84 + triCount * 50 !== buf.byteLength || triCount === 0) return;
+    const step = Math.max(1, Math.floor(triCount / 4500)); // decimate for butter-smooth 60fps canvas
+    const tris = [];
+    let minX=1e9, minY=1e9, minZ=1e9, maxX=-1e9, maxY=-1e9, maxZ=-1e9;
+    for (let i = 0; i < triCount; i += step) {
+      const off = 84 + i * 50;
+      const v0 = [dv.getFloat32(off+12,true), dv.getFloat32(off+16,true), dv.getFloat32(off+20,true)];
+      const v1 = [dv.getFloat32(off+24,true), dv.getFloat32(off+28,true), dv.getFloat32(off+32,true)];
+      const v2 = [dv.getFloat32(off+36,true), dv.getFloat32(off+40,true), dv.getFloat32(off+44,true)];
+      for (const v of [v0,v1,v2]) {
+        if (v[0]<minX) minX=v[0]; if (v[0]>maxX) maxX=v[0];
+        if (v[1]<minY) minY=v[1]; if (v[1]>maxY) maxY=v[1];
+        if (v[2]<minZ) minZ=v[2]; if (v[2]>maxZ) maxZ=v[2];
+      }
+      tris.push([v0, v1, v2]);
+    }
+    const cx = (minX+maxX)/2, cy = (minY+maxY)/2, cz = (minZ+maxZ)/2;
+    const scale = 1.8 / Math.max(maxX-minX, maxY-minY, maxZ-minZ, 1e-5);
+    // Remap Blender Z-up, -Y-front to viewer Y-up, +Z-front
+    meshTris = tris.map(t => t.map(v => [(v[0]-cx)*scale, (v[2]-cz)*scale, -(v[1]-cy)*scale]));
+    loadedMeshUrl = url;
+    document.getElementById('meshStatsSub').textContent = `${url.split('/').pop()} · ${triCount.toLocaleString()} tris`;
+  } catch (e) {}
+}
+
+function renderMesh() {
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+  if (meshTris.length === 0) {
+    ctx.fillStyle = '#64748b';
+    ctx.font = '12px ui-monospace, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('Interactive 3D STL Inspector — Waiting for Blender STL export...', w/2, h/2);
+    requestAnimationFrame(renderMesh);
+    return;
+  }
+  if (autoSpin) rotY += 0.012;
+  const cy = Math.cos(rotY), sy = Math.sin(rotY);
+  const cx = Math.cos(rotX), sx = Math.sin(rotX);
+  const fov = Math.min(w, h) * 0.62 * zoom;
+  const drawList = [];
+
+  for (let i = 0; i < meshTris.length; i++) {
+    const t = meshTris[i];
+    const pts = [];
+    for (let k = 0; k < 3; k++) {
+      let [x, y, z] = t[k];
+      const x1 = x * cy - z * sy;
+      const z1 = x * sy + z * cy;
+      const y2 = y * cx - z1 * sx;
+      const z2 = y * sx + z1 * cx;
+      pts.push([x1, y2, z2]);
+    }
+    const ux = pts[1][0]-pts[0][0], uy = pts[1][1]-pts[0][1], uz = pts[1][2]-pts[0][2];
+    const vx = pts[2][0]-pts[0][0], vy = pts[2][1]-pts[0][1], vz = pts[2][2]-pts[0][2];
+    let nx = uy*vz - uz*vy, ny = uz*vx - ux*vz, nz = ux*vy - uy*vx;
+    const nl = Math.hypot(nx, ny, nz) || 1;
+    nx /= nl; ny /= nl; nz /= nl;
+    if (nz < -0.15) continue; // backface cull
+    const avgZ = (pts[0][2] + pts[1][2] + pts[2][2]) / 3;
+    const light = Math.max(0.18, nx*0.35 + ny*0.55 + nz*0.75);
+    const p2 = pts.map(p => {
+      const d = 3.2 - p[2];
+      return [w/2 + (p[0]/d)*fov, h/2 - (p[1]/d)*fov];
+    });
+    drawList.push({z: avgZ, p: p2, l: light});
+  }
+  drawList.sort((a, b) => a.z - b.z);
+  for (let i = 0; i < drawList.length; i++) {
+    const d = drawList[i];
+    const r = Math.min(255, Math.floor(175 * d.l + 48));
+    const g = Math.min(255, Math.floor(145 * d.l + 42));
+    const b = Math.min(255, Math.floor(180 * d.l + 55));
+    ctx.beginPath();
+    ctx.moveTo(d.p[0][0], d.p[0][1]);
+    ctx.lineTo(d.p[1][0], d.p[1][1]);
+    ctx.lineTo(d.p[2][0], d.p[2][1]);
+    ctx.closePath();
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fill();
+    if (showWire) {
+      ctx.strokeStyle = 'rgba(56,189,248,0.28)';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+  requestAnimationFrame(renderMesh);
+}
+requestAnimationFrame(renderMesh);
+
+// --- Live State Polling ---
+let selectedRender = null;
+let lastViewportKey = '';
+let lastViewportOverlayKey = '';
+let lastThumbsKey = '';
+
+function selectViewportRender(url, latestUrl) {
+  selectedRender = (url === latestUrl) ? null : url;
+  lastViewportKey = '';
+  lastThumbsKey = '';
+  if (lastState) updateViewportPanel(lastState.blender_live || {});
+}
+
+function updateViewportPanel(bl) {
+  const stageEl = document.getElementById('viewportStage');
+  const thumbsEl = document.getElementById('renderThumbs');
+  const renders = bl.renders || [];
+  const latestUrl = bl.latest_render || '';
+  if (selectedRender && !renders.some(r => r.url === selectedRender) && selectedRender !== latestUrl) {
+    selectedRender = null;
+  }
+  const activeUrl = selectedRender || latestUrl;
+
+  if (!activeUrl) {
+    const waitKey = `WAIT|${bl.connected ? 1 : 0}|${bl.status || ''}|${bl.stage || ''}`;
+    if (lastViewportKey !== waitKey) {
+      lastViewportKey = waitKey;
+      lastViewportOverlayKey = '';
+      const heading = bl.connected
+        ? `LIVE ${escHtml(bl.version || 'BLENDER 5.0')} GUI CONNECTED — AWAITING FIRST CAPTURE`
+        : `LAUNCHING LIVE ${escHtml(bl.version || 'BLENDER 5.0')} GUI WINDOW...`;
+      const sub = escHtml(bl.stage || 'Real-time viewport captures will stream here automatically at every sculpting milestone.');
+      stageEl.innerHTML = `
+        <div style="text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px;padding:22px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;color:var(--cyan);font-weight:700;letter-spacing:0.08em;">
+            <span class="pulse-dot ${bl.connected ? '' : 'warn'}"></span>
+            <span>${heading}</span>
+          </div>
+          <div style="max-width:460px;line-height:1.45;color:#cbd5e1;">${sub}</div>
+          <div style="font-size:10.5px;color:#64748b;">Waiting for Blender milestone snapshot in /tracker/live_renders/...</div>
+        </div>
+      `;
+    }
+  } else {
+    const activeObj = renders.find(r => r.url === activeUrl) || { label: bl.stage || 'Live Capture', time: '' };
+    const versionTag = activeObj.time || 'live';
+    const renderKey = `IMG|${activeUrl}|${versionTag}`;
+    const labelText = activeObj.label || bl.stage || 'Live Capture';
+    const timeText = activeObj.time || '';
+    const overlayKey = `${labelText}|${timeText}`;
+
+    if (lastViewportKey !== renderKey) {
+      lastViewportKey = renderKey;
+      lastViewportOverlayKey = overlayKey;
+      const cacheBustUrl = `${activeUrl}?v=${encodeURIComponent(versionTag)}`;
+      const existingImg = stageEl.querySelector('img[data-viewport-img="1"]');
+
+      const mountImage = (url) => {
+        if (lastViewportKey !== renderKey) return;
+        stageEl.innerHTML = `
+          <img data-viewport-img="1" src="${escHtml(url)}" alt="Live Blender Viewport"/>
+          <div class="viewport-overlay">
+            <span id="viewportOverlayLabel">🎥 LIVE BLENDER VIEWPORT // ${escHtml(labelText)}</span>
+            <span id="viewportOverlayTime" style="color:var(--cyan)">${escHtml(timeText)}</span>
+          </div>
+        `;
+      };
+
+      const mountError = (url) => {
+        if (lastViewportKey !== renderKey) return;
+        lastViewportKey = ''; // allow clean retry on next poll
+        stageEl.innerHTML = `
+          <div style="text-align:center;color:#fda4af;font-family:var(--mono);font-size:11.5px;padding:22px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+            <div style="font-weight:700;letter-spacing:0.06em;">⚠ VIEWPORT CAPTURE UNAVAILABLE</div>
+            <div style="color:#cbd5e1;">Could not load <code>${escHtml(url)}</code></div>
+            <div style="font-size:10px;color:var(--muted);">Auto-retrying on next telemetry sync...</div>
+          </div>
+        `;
+      };
+
+      if (existingImg) {
+        // Preload before swapping so the viewport never flashes blank between frames
+        const preloader = new Image();
+        preloader.onload = () => {
+          if (lastViewportKey !== renderKey) return;
+          existingImg.src = cacheBustUrl;
+          const lblEl = document.getElementById('viewportOverlayLabel');
+          const tmEl = document.getElementById('viewportOverlayTime');
+          if (lblEl) lblEl.textContent = `🎥 LIVE BLENDER VIEWPORT // ${labelText}`;
+          if (tmEl) tmEl.textContent = timeText;
+        };
+        preloader.onerror = () => mountError(activeUrl);
+        preloader.src = cacheBustUrl;
+      } else {
+        mountImage(cacheBustUrl);
+        const imgEl = stageEl.querySelector('img[data-viewport-img="1"]');
+        if (imgEl) {
+          imgEl.onerror = () => mountError(activeUrl);
+        }
+      }
+    } else if (lastViewportOverlayKey !== overlayKey) {
+      lastViewportOverlayKey = overlayKey;
+      const lblEl = document.getElementById('viewportOverlayLabel');
+      const tmEl = document.getElementById('viewportOverlayTime');
+      if (lblEl) lblEl.textContent = `🎥 LIVE BLENDER VIEWPORT // ${labelText}`;
+      if (tmEl) tmEl.textContent = timeText;
+    }
+  }
+
+  // Thumbnails: only re-render DOM when render list or active selection changes
+  const thumbsKey = renders.map(r => `${r.url}|${r.time || ''}|${r.label || ''}`).join(';;') + '::' + (activeUrl || '');
+  if (thumbsKey !== lastThumbsKey) {
+    lastThumbsKey = thumbsKey;
+    if (renders.length > 0) {
+      thumbsEl.innerHTML = renders.map((r, idx) => `
+        <div class="thumb ${r.url === activeUrl ? 'active' : ''}" data-thumb-idx="${idx}">
+          <img src="${escHtml(r.url)}?v=${encodeURIComponent(r.time || '1')}" alt="${escHtml(r.label || 'Capture')}" onerror="this.style.opacity='0.25'"/>
+          <span>${escHtml(r.label || 'Capture')}</span>
+        </div>
+      `).join('');
+      thumbsEl.querySelectorAll('.thumb').forEach((el, idx) => {
+        const r = renders[idx];
+        if (r) el.addEventListener('click', () => selectViewportRender(r.url, latestUrl));
+      });
+    } else {
+      thumbsEl.innerHTML = '';
+    }
+  }
+}
+
+async function poll() {
+  try {
+    const res = await fetch('/api/state?t=' + Date.now());
+    const st = await res.json();
+    lastState = st;
+    document.getElementById('clockTag').textContent = new Date().toLocaleTimeString();
+    document.getElementById('currentStageText').textContent = 'STAGE: ' + (st.current_stage || '');
+    const pct = Math.max(0, Math.min(100, st.overall_progress || 0));
+    document.getElementById('pctVal').textContent = pct + '%';
+    const circ = 188.5;
+    document.getElementById('progressArc').style.strokeDashoffset = (circ - (circ * pct / 100)).toFixed(1);
+
+    // Live Mission Gantt Chart
+    renderGantt(st);
+
+    // Blender live pill
+    const bp = document.getElementById('blenderPill');
+    const bl = st.blender_live || {};
+    bp.textContent = `● ${bl.version || 'BLENDER 5.0'} LIVE GUI: ${bl.status || 'LAUNCHING'}`;
+    bp.className = 'pill ' + (bl.connected ? 'live' : 'launching');
+    document.getElementById('blenderStageSub').textContent = bl.stage || 'Connecting...';
+
+    // Pipeline stages
+    const pbar = document.getElementById('pipelineBar');
+    pbar.innerHTML = (st.pipeline_stages || []).map((s, idx) => `
+      <div class="stage ${s.status}">
+        <div class="stage-num"><span>0${idx+1}</span><span class="badge ${s.status}">${s.status}</span></div>
+        <div class="stage-label">${s.label}</div>
+      </div>
+    `).join('');
+
+    // Agents
+    const agrid = document.getElementById('agentGrid');
+    const runningCount = (st.agents || []).filter(a => a.status === 'RUNNING').length;
+    const doneCount = (st.agents || []).filter(a => a.status === 'DONE').length;
+    document.getElementById('agentSummary').textContent = `${runningCount} Running · ${doneCount}/${(st.agents||[]).length} Complete`;
+    agrid.innerHTML = (st.agents || []).map(a => `
+      <div class="agent-card ${a.status}">
+        <div class="agent-top">
+          <div>
+            <div class="agent-name">${a.name}</div>
+            <div class="agent-role">${a.role}</div>
+          </div>
+          <span class="badge ${a.status}">${a.status}</span>
+        </div>
+        <div class="model-tag">⚡ ${a.model}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${a.progress || 0}%"></div></div>
+        <div class="agent-task">${a.current_task || ''}</div>
+        <div class="agent-log">${(a.logs || []).slice(-6).map(l => `<div>${l}</div>`).join('')}</div>
+      </div>
+    `).join('');
+
+    // Live Blender Viewport Renders (flicker-free, preloaded swaps + diagnostic onerror)
+    updateViewportPanel(bl);
+
+    // Face Repair Slider
+    const fr = st.face_repair || {};
+    if (fr.before_img && document.getElementById('imgBefore').dataset.src !== fr.before_img) {
+      document.getElementById('imgBefore').src = fr.before_img + '?t=' + Date.now();
+      document.getElementById('imgBefore').dataset.src = fr.before_img;
+    }
+    if (fr.ready && fr.after_img) {
+      const afterKey = `${fr.after_img}|${fr.symmetry_score || ''}`;
+      if (document.getElementById('imgAfter').dataset.src !== afterKey) {
+        document.getElementById('imgAfter').src = fr.after_img + '?t=' + Date.now();
+        document.getElementById('imgAfter').dataset.src = afterKey;
+      }
+      document.getElementById('symScoreSub').textContent = fr.symmetry_score ? `Symmetry Match: ${fr.symmetry_score}` : 'Symmetry Repaired';
+      document.getElementById('repairStatusNote').textContent = 'Right cheek mirrored & blended onto fractured left cheek ✓';
+    }
+
+    // Outputs
+    const outs = st.outputs || [];
+    if (outs.length > 0) {
+      document.getElementById('outputList').innerHTML = outs.map(o => `
+        <div class="output-item">
+          <div>
+            <a href="${o.url}" target="_blank">${o.name}</a>
+            <div style="color:var(--muted);font-size:10px;margin-top:2px;">${o.desc || ''}</div>
+          </div>
+          <div style="text-align:right;color:var(--green);">${o.size || ''}</div>
+        </div>
+      `).join('');
+      if (!loadedMeshUrl && outs.some(o => o.url.endsWith('dumb_bunny_repaired.stl'))) {
+        loadSTL('/output/dumb_bunny_repaired.stl');
+      }
+    }
+
+    // Event feed
+    const evs = (st.events || []).slice().reverse();
+    document.getElementById('eventFeed').innerHTML = evs.map(e => `
+      <div class="ev-row">
+        <span class="ev-time">${e.time}</span>
+        <span class="ev-src">${e.source}</span>
+        <span class="ev-msg">${e.msg}</span>
+      </div>
+    `).join('');
+
+  } catch (e) {}
+}
+poll();
+setInterval(poll, 1200);
+</script>
+</body>
+</html>
